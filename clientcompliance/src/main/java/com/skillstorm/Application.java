@@ -5,14 +5,14 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.skillstorm.model.ClientRecord;
-import com.skillstorm.model.User;
-import com.skillstorm.repository.ClientRecordRepository;
-import com.skillstorm.repository.UserRepository;
-import com.skillstorm.type.ClientType;
-import com.skillstorm.type.CountryDomicile;
-import com.skillstorm.type.IndustrySector;
-import com.skillstorm.type.Role;
+import com.skillstorm.models.ClientRecord;
+import com.skillstorm.models.User;
+import com.skillstorm.repositories.ClientRecordRepository;
+import com.skillstorm.repositories.UserRepository;
+import com.skillstorm.types.ClientType;
+import com.skillstorm.types.CountryDomicile;
+import com.skillstorm.types.IndustrySector;
+import com.skillstorm.types.Role;
 
 @SpringBootApplication
 public class Application implements CommandLineRunner {

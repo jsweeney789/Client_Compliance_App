@@ -1,7 +1,7 @@
 package com.skillstorm.exceptions;
 
-import com.skillstorm.model.ClientRecord;
-import com.skillstorm.model.User;
+import com.skillstorm.models.ClientRecord;
+import com.skillstorm.models.User;
 
 public class IdNotFound extends Exception {
 	
