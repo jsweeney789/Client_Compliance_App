@@ -4,9 +4,12 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
+import org.springframework.stereotype.Service;
+
 import com.skillstorm.models.OnboardingCase;
 import com.skillstorm.repositories.OnboardingCaseRepository;
 
+@Service
 public class OnboardingCaseService {
     private final OnboardingCaseRepository repo;
     public OnboardingCaseService(OnboardingCaseRepository repo) {

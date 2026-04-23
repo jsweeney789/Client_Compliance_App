@@ -12,7 +12,7 @@ import com.skillstorm.types.IndustrySector;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
 
-@Document
+@Document(collection="client_records")
 public class ClientRecord {
 	@Id
 	String id;

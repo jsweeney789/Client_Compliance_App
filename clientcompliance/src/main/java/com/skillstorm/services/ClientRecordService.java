@@ -2,9 +2,12 @@ package com.skillstorm.services;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.skillstorm.models.ClientRecord;
 import com.skillstorm.repositories.ClientRecordRepository;
 
+@Service
 public class ClientRecordService {
 	
 	private final ClientRecordRepository clientrepo;

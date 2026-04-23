@@ -1,0 +1,7 @@
+Manifest-Version: 1.0
+Build-Jdk-Spec: 21
+Implementation-Title: Client Compliance App
+Implementation-Version: 1
+Main-Class: com.skillstorm.App
+Created-By: Maven Integration for Eclipse
+

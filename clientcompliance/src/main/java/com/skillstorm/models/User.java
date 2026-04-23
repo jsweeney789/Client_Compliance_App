@@ -1,7 +1,9 @@
 package com.skillstorm.models;
 
-import com.skillstorm.types.Role;
+import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.skillstorm.types.Role;
+@Document(collection="users")
 public class User {
 	
 	String id;
