@@ -1,6 +1,6 @@
 package com.skillstorm.models;
 
-import java.util.List;
+
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -10,24 +10,30 @@ import com.skillstorm.types.CountryDomicile;
 import com.skillstorm.types.IndustrySector;
 
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 @Document(collection="client_records")
 public class ClientRecord {
 	@Id
 	String id;
+	@NotBlank
 	String firstName;
+	@NotBlank
 	String lastName;
-	
+	@NotNull
 	ClientType type;
+	@NotNull
 	IndustrySector sector;
+	@NotNull
 	CountryDomicile domicile;
-	//@Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Type in valid phone number")
+	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Type in valid phone number")
 	String phoneNumber;
 	@Email
 	String email;
 	Boolean isDeleted;
-	//One to many
+	
 
 	public ClientRecord() {
 		super();
@@ -109,11 +115,11 @@ public class ClientRecord {
 		this.email = email;
 	}
 
-	public Boolean getIsDeleted() {
+	public Boolean isDeleted() {
 		return isDeleted;
 	}
 
-	public void setIsDeleted(Boolean isDeleted) {
+	public void setDeleted(Boolean isDeleted) {
 		this.isDeleted = isDeleted;
 	}
 

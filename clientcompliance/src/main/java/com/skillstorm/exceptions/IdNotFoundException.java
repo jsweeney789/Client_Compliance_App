@@ -3,27 +3,27 @@ package com.skillstorm.exceptions;
 import com.skillstorm.models.ClientRecord;
 import com.skillstorm.models.User;
 
-public class IdNotFound extends Exception {
+public class IdNotFoundException extends Exception {
 	
 
 	private static final long serialVersionUID = 1L;
 	
-	public IdNotFound()
+	public IdNotFoundException()
 	{
 		super("Id not Found");
 	}
 	
-	public IdNotFound(String message)
+	public IdNotFoundException(String message)
 	{
 		super(message);
 	}
 	
-	public IdNotFound(String message, ClientRecord clientrecord)
+	public IdNotFoundException(String message, ClientRecord clientrecord)
 	{
 		super(message +" "+ clientrecord.toString());
 	}
 	
-	public IdNotFound(String message, User user)
+	public IdNotFoundException(String message, User user)
 	{
 		super(message +" "+ user.toString());
 	}
