@@ -28,7 +28,7 @@ public class ClientRecord {
 	IndustrySector sector;
 	@NotNull
 	CountryDomicile domicile;
-	@Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Type in valid phone number")
+	@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Type in valid phone number")
 	String phoneNumber;
 	@Email
 	String email;

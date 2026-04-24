@@ -4,8 +4,8 @@ public enum IndustrySector {
 
 	AGRICULTURE("Agriculture"),
     CONSTRUCTION("Construction"),
-    CRYPTO_ASSETS("Crypto / Virtual Assets"),
-    DEFENSE_ARMS("Defense / Arms"),
+    CRYPTO_ASSETS("Crypto Assets"),
+    DEFENSE_ARMS("Defense Arms"),
     EDUCATION("Education"),
     ENTERTAINMENT_MEDIA("Entertainment & Media"),
     FINANCIAL_SERVICES("Financial Services"),

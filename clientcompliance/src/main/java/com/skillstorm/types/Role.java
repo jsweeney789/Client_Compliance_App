@@ -1,9 +1,9 @@
 package com.skillstorm.types;
 
 public enum Role {
-	Compliance_Officer("Compliance Officer"),
-	Relationship_Manager("Relationship Manager"),
-	ADMINISTATOR("Administator");
+	COMPLIANCE_OFFICER("Compliance Officer"),
+	RELATIONSHIP_MANAGER("Relationship Manager"),
+	ADMINISTRATOR("Administrator");
 
 	
 	private final String role;

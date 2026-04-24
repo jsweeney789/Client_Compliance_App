@@ -20,7 +20,7 @@ import com.skillstorm.services.ClientRecordService;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/clientrecord")
+@RequestMapping("/api/clientrecord")
 public class ClientRecordController {
 	
 private final ClientRecordService clientrecord;

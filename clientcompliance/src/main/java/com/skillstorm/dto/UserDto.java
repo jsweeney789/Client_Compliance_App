@@ -9,7 +9,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 
 public record UserDto(@NotBlank String firstName,@NotBlank String lastName,@Email String email,
-		@Pattern(regexp = "^\\+?[0-9]{10,15}$", message = "Type in valid phone number") 
+		@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Type in valid phone number") 
 		String phoneNumber, @NotBlank String password, @NotNull Role role) {
 	
 	public static User convertToUser(UserDto userdto)
