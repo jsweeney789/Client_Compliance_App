@@ -7,7 +7,6 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/tools/jackson/core/jackson-core/3.1.0/jackson-core-3.1.0.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-starter-tomcat/4.0.5/spring-boot-starter-tomcat-4.0.5.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-starter-tomcat-runtime/4.0.5/spring-boot-starter-tomcat-runtime-4.0.5.jar" enabled="true" runInBatchMode="false"/>
-    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-web-server/4.0.5/spring-boot-web-server-4.0.5.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/tomcat/embed/tomcat-embed-core/11.0.20/tomcat-embed-core-11.0.20.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/apache/tomcat/embed/tomcat-embed-websocket/11.0.20/tomcat-embed-websocket-11.0.20.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-tomcat/4.0.5/spring-boot-tomcat-4.0.5.jar" enabled="true" runInBatchMode="false"/>
@@ -66,4 +65,5 @@
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-data-commons/4.0.5/spring-boot-data-commons-4.0.5.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/data/spring-data-commons/4.0.4/spring-data-commons-4.0.4.jar" enabled="true" runInBatchMode="false"/>
     <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/data/spring-data-mongodb/5.0.4/spring-data-mongodb-5.0.4.jar" enabled="true" runInBatchMode="false"/>
+    <factorypathentry kind="VARJAR" id="M2_REPO/org/springframework/boot/spring-boot-web-server/4.0.5/spring-boot-web-server-4.0.5.jar" enabled="true" runInBatchMode="false"/>
 </factorypath>
