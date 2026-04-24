@@ -6,23 +6,30 @@ import java.util.List;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import com.skillstorm.types.OnboardingCaseStage;
+
 @Document(collection="cases")
 public class OnboardingCase {
     @Id
     private String id;
 
     private String clientId;
-    private String stage;
+    private OnboardingCaseStage stage;
     
     // while these are other models in Java to create consolidated objects, these will be embedded into the case
     // they are relevant to
     private List<CaseNote> notes;
     private List<KycCheck> checks;
 
-    public OnboardingCase(String id, String clientId, String stage) {
+    public OnboardingCase(String id, String clientId, OnboardingCaseStage stage) {
         this.id = id;
         this.clientId = clientId;
         this.stage = stage;
+        this.notes = new ArrayList<CaseNote>();
+        this.checks = new ArrayList<KycCheck>();
+    }
+
+    public OnboardingCase() {
         this.notes = new ArrayList<CaseNote>();
         this.checks = new ArrayList<KycCheck>();
     }
@@ -43,11 +50,11 @@ public class OnboardingCase {
         this.clientId = clientId;
     }
 
-    public String getStage() {
+    public OnboardingCaseStage getStage() {
         return stage;
     }
 
-    public void setStage(String stage) {
+    public void setStage(OnboardingCaseStage stage) {
         this.stage = stage;
     }
 
@@ -65,6 +72,12 @@ public class OnboardingCase {
 
     public void setChecks(List<KycCheck> checks) {
         this.checks = checks;
+    }
+
+    @Override
+    public String toString() {
+        return "OnboardingCase [id=" + id + ", clientId=" + clientId + ", stage=" + stage + ", notes=" + notes
+                + ", checks=" + checks + "]";
     }
 
     
