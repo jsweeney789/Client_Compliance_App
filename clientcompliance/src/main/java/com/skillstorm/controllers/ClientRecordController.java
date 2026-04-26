@@ -53,7 +53,7 @@ private final ClientRecordService clientrecord;
 	public ResponseEntity<ClientRecord> addClientRecord(@Valid @RequestBody ClientRecordDto clientrecorddto)
 	{
 		
-			return ResponseEntity.ok(this.clientrecord.addRecord(clientrecorddto));
+			return ResponseEntity.ok(this.clientrecord.addClientRecord(clientrecorddto));
 		
 	}
 	
@@ -62,7 +62,7 @@ private final ClientRecordService clientrecord;
 	public ResponseEntity<ClientRecord> updateClientRecord(@PathVariable String id, @RequestBody ClientRecordDto clientrecorddto)
 	{
 		try {
-			return ResponseEntity.ok(this.clientrecord.updateRecords(id, clientrecorddto));
+			return ResponseEntity.ok(this.clientrecord.updateClientRecord(id, clientrecorddto));
 		} catch (IdNotFoundException exception) {
 			
 			return ResponseEntity.notFound().header("message", exception.getMessage()).build(); 
@@ -74,7 +74,7 @@ private final ClientRecordService clientrecord;
 	public ResponseEntity<ClientRecord> deleteClientRecord(@PathVariable String id)
 	{
 		try {
-			return ResponseEntity.ok(this.clientrecord.deleteRecords(id));
+			return ResponseEntity.ok(this.clientrecord.deleteClientRecord(id));
 		} catch (IdNotFoundException exception) {
 			
 			return ResponseEntity.notFound().header("message", exception.getMessage()).build(); 
