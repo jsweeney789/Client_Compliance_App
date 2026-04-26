@@ -35,7 +35,7 @@ private final UserRepository userrepo;
 	}
 	
 	//Add
-		public User addRecord(UserDto newuser)
+		public User addUser(UserDto newuser)
 		{
 		
 			return this.userrepo.save(UserDto.convertToUser(newuser));
@@ -45,7 +45,7 @@ private final UserRepository userrepo;
 	
 	
 	//Update
-	public User updateRecords(String id, UserDto newuser) throws IdNotFoundException
+	public User updateUser(String id, UserDto newuser) throws IdNotFoundException
 	{
 		User user = userrepo.findById(id).orElseThrow(()->new IdNotFoundException("User Not Found"));
 		if(user.isDeleted())
@@ -58,7 +58,7 @@ private final UserRepository userrepo;
 	}
 	
 	//Delete Record
-	public User deleteRecords(String id) throws IdNotFoundException
+	public User deleteUser(String id) throws IdNotFoundException
 	{
 		User user = userrepo.findById(id).orElseThrow(()->new IdNotFoundException("User Not Found"));
 		if(user.isDeleted())

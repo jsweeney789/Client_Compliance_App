@@ -52,7 +52,7 @@ private final UserService userservice;
 	public ResponseEntity<User> addUser(@Valid @RequestBody UserDto userdto)
 	{
 	
-			return ResponseEntity.ok(this.userservice.addRecord(userdto));
+			return ResponseEntity.ok(this.userservice.addUser(userdto));
 		
 	}
 	
@@ -61,7 +61,7 @@ private final UserService userservice;
 	public ResponseEntity<User> updateUser(@PathVariable String id, @RequestBody UserDto userdto)
 	{
 		try {
-			return ResponseEntity.ok(this.userservice.updateRecords(id, userdto));
+			return ResponseEntity.ok(this.userservice.updateUser(id, userdto));
 		} catch (IdNotFoundException exception) {
 			
 			return ResponseEntity.notFound().header("message", exception.getMessage()).build(); 
@@ -73,7 +73,7 @@ private final UserService userservice;
 	public ResponseEntity<User> deleteUser(@PathVariable String id)
 	{
 		try {
-			return ResponseEntity.ok(this.userservice.deleteRecords(id));
+			return ResponseEntity.ok(this.userservice.deleteUser(id));
 		} catch (IdNotFoundException exception) {
 			
 			return ResponseEntity.notFound().header("message", exception.getMessage()).build(); 

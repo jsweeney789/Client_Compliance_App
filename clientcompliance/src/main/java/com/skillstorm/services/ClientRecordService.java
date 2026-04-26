@@ -35,7 +35,7 @@ public class ClientRecordService {
 	}
 	
 	//Add
-		public ClientRecord addRecord(ClientRecordDto newrecord) 
+		public ClientRecord addClientRecord(ClientRecordDto newrecord) 
 		{
 		
 			return this.clientrepo.save(ClientRecordDto.convertToClientRecord(newrecord));
@@ -45,7 +45,7 @@ public class ClientRecordService {
 	
 	
 	//Update
-	public ClientRecord updateRecords(String id, ClientRecordDto newrecord) throws IdNotFoundException
+	public ClientRecord updateClientRecord(String id, ClientRecordDto newrecord) throws IdNotFoundException
 	{
 		ClientRecord record = clientrepo.findById(id).orElseThrow(()->new IdNotFoundException("Client Record Not Found"));
 		if(record.isDeleted())
@@ -58,7 +58,7 @@ public class ClientRecordService {
 	}
 	
 	//Delete Record
-	public ClientRecord deleteRecords(String id) throws IdNotFoundException
+	public ClientRecord deleteClientRecord(String id) throws IdNotFoundException
 	{
 		ClientRecord record = clientrepo.findById(id).orElseThrow(()->new IdNotFoundException("Client Record Not Found"));
 		if(record.isDeleted())
