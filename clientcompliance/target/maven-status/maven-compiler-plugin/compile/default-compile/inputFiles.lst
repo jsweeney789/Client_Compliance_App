@@ -1,26 +1,27 @@
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\App.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\controllers\ClientRecordController.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\controllers\OnboardingCaseController.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\controllers\UserController.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\dto\ClientRecordDto.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\dto\UserDto.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\dto\UserLogin.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\exceptions\IdNotFoundException.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\models\CaseNote.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\models\ClientRecord.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\models\KycCheck.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\models\OnboardingCase.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\models\User.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\repositories\ClientRecordRepository.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\repositories\OnboardingCaseRepository.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\repositories\UserRepository.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\services\ClientRecordService.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\services\OnboardingCaseService.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\services\UserService.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\ClientType.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\CountryDomicile.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\IndustrySector.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\KycCheckResult.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\KycCheckType.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\OnboardingCaseStage.java
-C:\Users\bradl\Documents\SkillStorm Work\Projects\Client_Compliance_App\clientcompliance\src\main\java\com\skillstorm\types\Role.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\App.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\controllers\ClientRecordController.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\controllers\OnboardingCaseController.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\controllers\UserController.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\dto\ClientRecordDto.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\dto\OnboardingCaseDto.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\dto\UserDto.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\dto\UserLogin.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\exceptions\IdNotFoundException.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\models\CaseNote.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\models\ClientRecord.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\models\KycCheck.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\models\OnboardingCase.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\models\User.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\repositories\ClientRecordRepository.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\repositories\OnboardingCaseRepository.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\repositories\UserRepository.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\services\ClientRecordService.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\services\OnboardingCaseService.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\services\UserService.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\ClientType.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\CountryDomicile.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\IndustrySector.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\KycCheckResult.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\KycCheckType.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\OnboardingCaseStage.java
+C:\Users\jacko\OneDrive\Documents\Code\project2\clientcompliance\src\main\java\com\skillstorm\types\Role.java

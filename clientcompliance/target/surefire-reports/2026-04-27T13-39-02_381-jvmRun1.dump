@@ -1,0 +1,8 @@
+# Created at 2026-04-27T13:39:03.706
+org.junit.platform.launcher.core.DiscoveryIssueException: TestEngine with ID 'junit-jupiter' encountered a critical issue during test discovery:
+
+(1) [ERROR] @AfterAll method 'void com.skillstorm.OnboardingCaseIntegrationTests.cleanDb()' must be static unless the test class is annotated with @TestInstance(Lifecycle.PER_CLASS).
+    Source: MethodSource [className = 'com.skillstorm.OnboardingCaseIntegrationTests', methodName = 'cleanDb', methodParameterTypes = '']
+            at com.skillstorm.OnboardingCaseIntegrationTests.cleanDb(SourceFile:0)
+
+
