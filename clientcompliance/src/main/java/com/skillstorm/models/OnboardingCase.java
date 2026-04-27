@@ -21,6 +21,15 @@ public class OnboardingCase {
     private List<CaseNote> notes;
     private List<KycCheck> checks;
 
+    public OnboardingCase(String id, String clientId, OnboardingCaseStage stage, List<CaseNote> notes,
+            List<KycCheck> checks) {
+        this.id = id;
+        this.clientId = clientId;
+        this.stage = stage;
+        this.notes = notes;
+        this.checks = checks;
+    }
+
     public OnboardingCase(String id, String clientId, OnboardingCaseStage stage) {
         this.id = id;
         this.clientId = clientId;
