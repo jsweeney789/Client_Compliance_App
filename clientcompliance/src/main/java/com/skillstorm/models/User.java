@@ -30,6 +30,13 @@ public class User {
 		super();
 		this.isDeleted = false;
 	}
+	
+	public User(String email, String password)
+	{
+		this.email = email;
+		this.password = password;
+	}
+	
 	public User(String id, String firstName, String lastName, String email, String phoneNumber,String password, Role role) {
 		super();
 		this.id = id;
