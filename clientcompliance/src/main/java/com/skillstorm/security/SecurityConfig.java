@@ -2,6 +2,7 @@ package com.skillstorm.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -10,6 +11,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.HttpStatusEntryPoint;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
@@ -50,14 +52,22 @@ public class SecurityConfig {
 		
 		.requestMatchers("/api/login/*").permitAll()
 		.requestMatchers("/api/login/").permitAll()
+		.requestMatchers("/api/clientrecord/**").hasAuthority("RELATIONSHIP_MANAGER")
 		
 		.anyRequest().authenticated()
 		
 		
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-		.oauth2Login(Customizer.withDefaults());
-		
+		//.oauth2Login(Customizer.withDefaults());
+		.oauth2Login(oauth -> oauth.loginPage("/oauth2/authorization/google"));
+		http.exceptionHandling(ex -> ex
+			    .defaultAuthenticationEntryPointFor(
+			        new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
+			        request -> request.getRequestURI().startsWith("/api/")
+			    )
+			)
+			 ;
 				
 				
 				
