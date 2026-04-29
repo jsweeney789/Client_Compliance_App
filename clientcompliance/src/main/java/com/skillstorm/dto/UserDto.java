@@ -18,6 +18,10 @@ public record UserDto(@NotBlank String firstName,@NotBlank String lastName,@Emai
 				userdto.password,userdto.role);
 	}
 	
+	public static UserDto convertToDto(User user) {
+		return new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), 
+							user.getPhoneNumber(), user.getPassword(), user.getRole());
+	}
 	
 
 }
