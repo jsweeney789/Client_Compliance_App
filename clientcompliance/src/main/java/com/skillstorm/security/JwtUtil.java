@@ -2,6 +2,7 @@ package com.skillstorm.security;
 
 import java.util.Date;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import com.auth0.jwt.JWT;
@@ -10,8 +11,8 @@ import com.auth0.jwt.interfaces.DecodedJWT;
 
 @Service
 public class JwtUtil {
-	
-	 private final String SECRET = "pKqkNNcZXjxEMzdywR8lnCVj4qNbTguDpQ03uYPOkdj";
+	@Value("${JWT_SECRET}")
+	private String SECRET;
 
 	    public String generateToken(CustomUserDetails user) {
 	        return JWT.create()
