@@ -89,6 +89,39 @@
     <artifactId>mockito-junit-jupiter</artifactId>
     <scope>test</scope>
 </dependency>
+
+<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-client</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-resource-server</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-client-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-oauth2-resource-server-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+    <groupId>com.auth0</groupId>
+    <artifactId>java-jwt</artifactId>
+    <version>4.0.0</version>
+</dependency>
     </dependencies>
     <build>
         <plugins>
