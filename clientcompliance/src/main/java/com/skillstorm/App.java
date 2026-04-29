@@ -1,6 +1,7 @@
 package com.skillstorm;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -46,8 +47,6 @@ public class App implements CommandLineRunner {
 		userrepo.save(user3);
 		clientrepo.save(client);
 		clientrepo.save(client2);
-		
-
 		
 	}
 }
