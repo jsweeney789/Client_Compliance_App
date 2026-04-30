@@ -20,13 +20,15 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 	
-	CustomUserDetailsService service;
+	private final CustomOAuth2UserService customOAuth2UserService;
+    CustomUserDetailsService service;
 	JwtFilter jwtAuthFilter;
 	
-	public SecurityConfig(CustomUserDetailsService service,JwtFilter jwtAuthFilter)
+	public SecurityConfig(CustomUserDetailsService service,JwtFilter jwtAuthFilter, CustomOAuth2UserService customOAuth2UserService)
 	{
 		this.service = service;
 		this.jwtAuthFilter = jwtAuthFilter;
+        this.customOAuth2UserService = customOAuth2UserService;
 	}
 	
 	@Bean
@@ -46,33 +48,35 @@ public class SecurityConfig {
 	
 	
 	@Bean
-	SecurityFilterChain filterChain(HttpSecurity http)
+	SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
 		http.csrf(csrf-> csrf.disable());
 		
 		http.authorizeHttpRequests(auth-> auth
-		.requestMatchers(HttpMethod.GET).permitAll()
+		// login endpoints must be permitted to anyone
 		.requestMatchers("/api/login/**").permitAll()
 		.requestMatchers("/api/login/").permitAll()
-		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
-		.requestMatchers("/api/clientrecord/**").hasAuthority("RELATIONSHIP_MANAGER")
-		.requestMatchers(HttpMethod.PUT, "api/cases/**").hasAuthority("RELATIONSHIP_MANAGER")
-		.requestMatchers("api/cases/**").hasAuthority("COMPLIANCE_OFFICER")
+		.requestMatchers("/oauth2/**", "/login/oauth2/**", "/oauth2/authorization/google").permitAll()
+		
+		// api endpoints should have some kind of protection
+		
+		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
+		.requestMatchers(HttpMethod.PUT, "/api/cases/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
+		.requestMatchers("/api/cases/**").hasAnyAuthority("COMPLIANCE_OFFICER", "ADMINISTRATOR")
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
-		//.oauth2Login(Customizer.withDefaults());
-		.oauth2Login(oauth -> oauth.loginPage("/oauth2/authorization/google"));
+		.oauth2Login(oauth -> oauth
+			.userInfoEndpoint(user -> user.oidcUserService(customOAuth2UserService))
+			.defaultSuccessUrl("/api/login/oauth2/success", true)  // your post-login endpoint
+			.failureUrl("/login?error=true")
+		);
 		http.exceptionHandling(ex -> ex
 			.defaultAuthenticationEntryPointFor(
 				new HttpStatusEntryPoint(HttpStatus.UNAUTHORIZED),
 				request -> request.getRequestURI().startsWith("/api/")
 			)
 		);
-				
-				
-				
-				
 		
 		return http.build();
 	}

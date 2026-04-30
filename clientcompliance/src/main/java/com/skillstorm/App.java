@@ -32,6 +32,7 @@ public class App implements CommandLineRunner {
         SpringApplication.run(App.class, args);
     }
     
+
     @Override
 	public void run(String... args) throws Exception {
     	
@@ -47,6 +48,5 @@ public class App implements CommandLineRunner {
 		userrepo.save(user3);
 		clientrepo.save(client);
 		clientrepo.save(client2);
-		
 	}
 }
