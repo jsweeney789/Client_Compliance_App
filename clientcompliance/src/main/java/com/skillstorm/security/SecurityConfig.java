@@ -2,6 +2,7 @@ package com.skillstorm.security;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
@@ -50,11 +51,13 @@ public class SecurityConfig {
 		http.csrf(csrf-> csrf.disable());
 		
 		http.authorizeHttpRequests(auth-> auth
-		
+		.requestMatchers(HttpMethod.GET).permitAll()
 		.requestMatchers("/api/login/**").permitAll()
 		.requestMatchers("/api/login/").permitAll()
 		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
 		.requestMatchers("/api/clientrecord/**").hasAuthority("RELATIONSHIP_MANAGER")
+		.requestMatchers(HttpMethod.PUT, "api/cases/**").hasAuthority("RELATIONSHIP_MANAGER")
+		.requestMatchers("api/cases/**").hasAuthority("COMPLIANCE_OFFICER")
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
