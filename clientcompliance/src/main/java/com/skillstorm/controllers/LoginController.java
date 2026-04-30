@@ -1,6 +1,7 @@
 package com.skillstorm.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,8 @@ import com.skillstorm.models.User;
 import com.skillstorm.security.CustomUserDetails;
 import com.skillstorm.security.JwtUtil;
 import com.skillstorm.services.UserService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -46,7 +49,7 @@ public class LoginController {
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> login(@RequestBody UserLogin dto) {
+    public ResponseEntity<String> login(@RequestBody UserLogin dto,HttpServletResponse response) {
         Authentication auth = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 dto.email(),
@@ -57,8 +60,21 @@ public class LoginController {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 
         String token = jwtUtil.generateToken(userDetails);
+        
+        ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(false) // true in production (HTTPS)
+                .path("/")
+                .sameSite("Lax")
+                .maxAge(24 * 60 * 60)
+                .build();
 
-        return ResponseEntity.ok(token);
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return ResponseEntity.ok("Login successful");
+        
+        
+        //return ResponseEntity.ok(token);
     }
     @GetMapping("/")
     public String tester() {
