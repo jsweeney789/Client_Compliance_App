@@ -42,10 +42,24 @@ public class LoginController {
     // this method takes in a user's username nad password via a body object
     // then encrypts the password and stores the user in the db
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDto dto) {
+    public ResponseEntity<String> register(@RequestBody UserDto dto, HttpServletResponse response) {
         User user = new User(dto.email(), this.encoder.encode(dto.password()));
         this.service.addUser(UserDto.convertToDto(user));
-        return ResponseEntity.status(HttpStatus.CREATED).body(jwtUtil.generateToken(new CustomUserDetails(user)));
+        
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+        String token = jwtUtil.generateToken(userDetails);
+        
+        ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(false) // set false for http
+                .path("/")  //need this so the cookie will work with all paths
+                .sameSite("Lax")
+                .maxAge(3600) // last an hour
+                .build();
+
+        	response.addHeader("Set-Cookie", cookie.toString());
+        
+        return ResponseEntity.ok("Created New User");
     }
 
     @PostMapping("/")
@@ -63,10 +77,10 @@ public class LoginController {
         
         ResponseCookie cookie = ResponseCookie.from("jwt", token)
                 .httpOnly(true)
-                .secure(false) // true in production (HTTPS)
-                .path("/")
+                .secure(false) // set false for http
+                .path("/")  //need this so the cookie will work with all paths
                 .sameSite("Lax")
-                .maxAge(24 * 60 * 60)
+                .maxAge(3600) // last an hour
                 .build();
 
         response.addHeader("Set-Cookie", cookie.toString());
