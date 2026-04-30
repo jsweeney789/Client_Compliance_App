@@ -54,7 +54,6 @@ public class OnboardingCaseIntegrationTests {
 
 
     @BeforeEach
-    @AfterAll
     void cleanDb() {
         repo.deleteAll();
     }

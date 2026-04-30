@@ -5,12 +5,10 @@ import com.skillstorm.types.Role;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 
-public record UserDto(@NotBlank String firstName,@NotBlank String lastName,@Email String email,
-		@Pattern(regexp = "^\\d{3}-\\d{3}-\\d{4}$", message = "Type in valid phone number") 
-		String phoneNumber, @NotBlank String password, @NotNull Role role) {
+
+public record UserDto( String firstName, String lastName,@Email String email, 
+		String phoneNumber, @NotBlank String password, Role role) {
 	
 	public static User convertToUser(UserDto userdto)
 	{
@@ -18,6 +16,10 @@ public record UserDto(@NotBlank String firstName,@NotBlank String lastName,@Emai
 				userdto.password,userdto.role);
 	}
 	
+	public static UserDto convertToDto(User user) {
+		return new UserDto(user.getFirstName(), user.getLastName(), user.getEmail(), 
+							user.getPhoneNumber(), user.getPassword(), user.getRole());
+	}
 	
 
 }

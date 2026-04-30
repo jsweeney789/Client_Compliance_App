@@ -1,1 +1,5 @@
 /.metadata/
+/clientcompliance/target/
+/clientcompliance/.factorypath
+/clientcompliance/.settings/
+/clientcompliance/.env
