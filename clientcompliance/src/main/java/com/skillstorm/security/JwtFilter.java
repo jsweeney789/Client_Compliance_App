@@ -32,12 +32,6 @@ public class JwtFilter extends OncePerRequestFilter {
     	System.out.println("Filter hit");
         String header = request.getHeader("Authorization");
         System.out.println("header: "+ header);
-        
-        // if we're not a bearer, don't even bother attempting to jwt validate a token
-        if (header == null || !header.startsWith("Bearer ")) {
-            chain.doFilter(request, response); // pass through, don't reject
-            return;
-        }
 
         if (header != null && header.startsWith("Bearer ")) {
             String token = header.substring(7);
