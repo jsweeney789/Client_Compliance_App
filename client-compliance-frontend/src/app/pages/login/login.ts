@@ -42,7 +42,7 @@ export class LoginPageComponent {
         if (this.loginForm.invalid) return;
 
         const {email, password} = this.loginForm.value;
-        const payload: User = {
+        const payload = {
             email,
             password
         }
@@ -54,7 +54,7 @@ export class LoginPageComponent {
         })
     }
 
-    register(formData: User):void {
+    register(formData: any):void {
         this.loginService.register(formData).subscribe({
         next: (res) => {
             console.log('Registered:', res);
