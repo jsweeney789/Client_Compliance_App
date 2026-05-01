@@ -54,7 +54,7 @@ public class SecurityConfig {
 		.requestMatchers("/api/login/**").permitAll()
 		.requestMatchers("/api/login/").permitAll()
 		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
-		.requestMatchers("/api/clientrecord/**").hasAuthority("RELATIONSHIP_MANAGER")
+		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER","BASIC_USER")
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
