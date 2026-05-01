@@ -43,8 +43,16 @@
         <input pInputText type="password" formControlName="confirmPassword" class="w-full field-box" [class.p-filled]="registerForm.get('confirmPassword')?.value"/>
         <label>Confirm Password</label>
     </p-floatlabel>
-    
 
+    @if (
+      registerForm.hasError('passwordMismatch') &&
+      registerForm.get('confirmPassword')?.touched
+    ) {
+      <div class="text-red-500 text-sm px-2">
+        Passwords do not match
+      </div>
+    }
+    
     <!-- Buttons -->
     <div class="flex justify-center gap-3 mt-4 w-full">
 
