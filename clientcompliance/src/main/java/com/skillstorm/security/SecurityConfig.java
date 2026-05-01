@@ -50,10 +50,13 @@ public class SecurityConfig {
 	@Bean
 	SecurityFilterChain filterChain(HttpSecurity http) throws Exception
 	{
-		http.csrf(csrf-> csrf.disable());
+		// TODO: bypassing stuff for development, should fix later
+		http.csrf(csrf-> csrf.disable())
+			.cors(Customizer.withDefaults());
 		
 		http.authorizeHttpRequests(auth-> auth
 		// login endpoints must be permitted to anyone
+		.requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
 		.requestMatchers("/api/login/**").permitAll()
 		.requestMatchers("/api/login/").permitAll()
 		.requestMatchers("/oauth2/**", "/login/oauth2/**", "/oauth2/authorization/google").permitAll()

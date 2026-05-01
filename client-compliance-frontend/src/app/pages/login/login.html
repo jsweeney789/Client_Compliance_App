@@ -1,1 +1,50 @@
-<p>login works!</p>
+<div class="login-container">
+    <!-- Header -->
+    <div class="login-header">
+        <i class="pi pi-briefcase"></i>
+        <div class="title"><h1>Welcome to Client Compliance!</h1></div>
+        <i class="pi pi-users"></i>
+    </div>
+    <!-- Main Body -->
+    <div class="flex flex-col md:flex-row gap-6"> 
+        
+        <div class="w-full md:w-5/12 flex flex-col items-center justify-center gap-3 py-5">
+            <form
+                [formGroup]="loginForm"
+                (ngSubmit)="login()"
+            >
+                <div class="flex flex-col gap-2">
+                    <label for="email">Email</label>
+                    <input pInputText id="email" type="text" formControlName="email"/>
+                </div>
+                <div class="flex flex-col gap-2">
+                    <label for="password">Password</label>
+                    <input pInputText id="password" type="password" formControlName="password"/>
+                </div>
+                <div class="flex">
+                    <p-button label="Login" icon="pi pi-user" type="submit" [disabled]="loginForm.invalid"
+                                class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" />
+                </div>
+            </form>
+
+            <!-- Google button -->
+            <button id="google-btn" (click)="loginWithGoogle()">
+                <img src="assets/neutral-google-signin.svg">
+            </button>
+        </div>
+        <div class="w-full md:w-2/12">
+            <p-divider layout="vertical" class="!hidden md:!flex"><b>OR</b></p-divider>
+            <p-divider layout="horizontal" class="!flex md:!hidden" align="center"><b>OR</b></p-divider>
+        </div>
+        <div class="w-full md:w-5/12 flex items-center justify-center py-5">
+            <p-button label="Sign Up" icon="pi pi-user-plus" severity="success" class="w-full max-w-[17.35rem]" styleClass="w-full mx-auto" (onClick)="openRegisterModal()" />
+        </div>
+    </div>
+</div>
+
+<app-register-modal
+    [visible]="showRegisterDialog()"
+    (registered)="register($event)"
+    (cancelled)="showRegisterDialog.set(false)"
+>
+</app-register-modal>

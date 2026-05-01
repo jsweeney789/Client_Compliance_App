@@ -31,5 +31,6 @@ public class OAuthController {
         return ResponseEntity.ok(jwt);
 
         // need to update this to use cookies and also return frontend redirect in an http servlet response
+        // response.sendRedirect("http://localhost:4200/dashboard");
     }
 }
