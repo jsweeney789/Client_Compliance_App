@@ -91,8 +91,5 @@ public class LoginController {
         
         //return ResponseEntity.ok(token);
     }
-    @GetMapping("/")
-    public String tester() {
-        return "If you accessed login via a url, you will see this and it should not redirect to OAuth.";
-    }
+
 }
