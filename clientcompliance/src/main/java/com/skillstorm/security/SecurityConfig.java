@@ -66,6 +66,8 @@ public class SecurityConfig {
 		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
 		.requestMatchers(HttpMethod.PUT, "/api/cases/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
 		.requestMatchers("/api/cases/**").hasAnyAuthority("COMPLIANCE_OFFICER", "ADMINISTRATOR")
+		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
+		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER","BASIC_USER")
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

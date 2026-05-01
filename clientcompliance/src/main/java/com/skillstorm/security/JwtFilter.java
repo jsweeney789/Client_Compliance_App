@@ -10,6 +10,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -29,13 +30,36 @@ public class JwtFilter extends OncePerRequestFilter {
                                     HttpServletResponse response,
                                     FilterChain chain)
             throws ServletException, IOException {
+    	
+    	
     	System.out.println("Filter hit");
-        String header = request.getHeader("Authorization");
-        System.out.println("header: "+ header);
+//        String header = request.getHeader("Authorization");
+//        System.out.println("header: "+ header);
+//        if (header != null && header.startsWith("Bearer ")) {
+//            String token = header.substring(7);
+//            System.out.println("Token: "+ token);
+            
+    	 String token = null;
 
-        if (header != null && header.startsWith("Bearer ")) {
-            String token = header.substring(7);
-            System.out.println("Token: "+ token);
+    	    // 1. Read JWT from cookie
+    	    if (request.getCookies() != null) {
+    	        for (Cookie cookie : request.getCookies()) {
+    	            if ("jwt".equals(cookie.getName())) {
+    	                token = cookie.getValue();
+    	                System.out.println("Token from cookie: " + token);
+    	                break;
+    	            }
+    	        }
+    	    }
+            
+            
+            
+            if (token == null) {
+            	
+            	 chain.doFilter(request, response);
+            	 return;
+            }
+            
             try {
                 String username = jwtUtil.extractUsername(token);
                 
@@ -53,7 +77,7 @@ public class JwtFilter extends OncePerRequestFilter {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-        }
+        
 
         chain.doFilter(request, response);
     }

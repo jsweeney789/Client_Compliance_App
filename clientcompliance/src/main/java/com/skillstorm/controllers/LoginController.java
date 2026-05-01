@@ -1,6 +1,7 @@
 package com.skillstorm.controllers;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseCookie;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,8 @@ import com.skillstorm.models.User;
 import com.skillstorm.security.CustomUserDetails;
 import com.skillstorm.security.JwtUtil;
 import com.skillstorm.services.UserService;
+
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @RestController
@@ -39,14 +42,29 @@ public class LoginController {
     // this method takes in a user's username nad password via a body object
     // then encrypts the password and stores the user in the db
     @PostMapping("/register")
-    public ResponseEntity<String> register(@RequestBody UserDto dto) {
+    public ResponseEntity<String> register(@RequestBody UserDto dto, HttpServletResponse response) {
         User user = new User(dto.email(), this.encoder.encode(dto.password()));
-        this.service.addUser(UserDto.convertToDto(user));
-        return ResponseEntity.status(HttpStatus.CREATED).body(jwtUtil.generateToken(new CustomUserDetails(user)));
+        user = this.service.addUser(UserDto.convertToDto(user));
+        System.out.println(user);
+        
+        CustomUserDetails userDetails = new CustomUserDetails(user);
+        String token = jwtUtil.generateToken(userDetails);
+        
+        ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(false) // set false for http
+                .path("/")  //need this so the cookie will work with all paths
+                .sameSite("Lax")
+                .maxAge(3600) // last an hour
+                .build();
+
+        	response.addHeader("Set-Cookie", cookie.toString());
+        
+        return ResponseEntity.ok("Created New User");
     }
 
     @PostMapping("/")
-    public ResponseEntity<String> login(@RequestBody UserLogin dto) {
+    public ResponseEntity<String> login(@RequestBody UserLogin dto,HttpServletResponse response) {
         Authentication auth = authManager.authenticate(
             new UsernamePasswordAuthenticationToken(
                 dto.email(),
@@ -57,8 +75,21 @@ public class LoginController {
         CustomUserDetails userDetails = (CustomUserDetails) auth.getPrincipal();
 
         String token = jwtUtil.generateToken(userDetails);
+        
+        ResponseCookie cookie = ResponseCookie.from("jwt", token)
+                .httpOnly(true)
+                .secure(false) // set false for http
+                .path("/")  //need this so the cookie will work with all paths
+                .sameSite("Lax")
+                .maxAge(3600) // last an hour
+                .build();
 
-        return ResponseEntity.ok(token);
+        response.addHeader("Set-Cookie", cookie.toString());
+
+        return ResponseEntity.ok("Login successful");
+        
+        
+        //return ResponseEntity.ok(token);
     }
 
 }
