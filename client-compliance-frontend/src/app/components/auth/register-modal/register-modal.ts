@@ -16,7 +16,7 @@ export class RegisterModal {
   visible = input.required<boolean>();
 
   cancelled = output<void>();
-  registered = output<User>();
+  registered = output<any>();
 
   constructor(
         private formBuilder : FormBuilder
@@ -47,9 +47,9 @@ export class RegisterModal {
         return;
       }
       const form = this.registerForm.value;
-      const user: User = {
-        firstName: form.firstname,
-        lastName: form.lastName,
+      const user = {
+        firstname: form.firstname,
+        lastname: form.lastName,
         email: form.email,
         password: form.password
       }

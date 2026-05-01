@@ -10,7 +10,7 @@ export class LoginService {
 
   constructor(private http: HttpClient) {}
 
-  login(data: User): Observable<any> {
+  login(data: any): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/`,
       data,
@@ -20,7 +20,7 @@ export class LoginService {
     );
   }
 
-  register(data: User): Observable<any> {
+  register(data: any): Observable<any> {
     return this.http.post(
       `${this.baseUrl}/register`,
       data,
