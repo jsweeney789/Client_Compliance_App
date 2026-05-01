@@ -54,6 +54,11 @@ public class JwtFilter extends OncePerRequestFilter {
             
             
             
+            if (token == null) {
+            	
+            	 chain.doFilter(request, response);
+            	 return;
+            }
             
             try {
                 String username = jwtUtil.extractUsername(token);

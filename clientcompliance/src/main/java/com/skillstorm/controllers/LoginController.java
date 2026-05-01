@@ -44,7 +44,8 @@ public class LoginController {
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserDto dto, HttpServletResponse response) {
         User user = new User(dto.email(), this.encoder.encode(dto.password()));
-        this.service.addUser(UserDto.convertToDto(user));
+        user = this.service.addUser(UserDto.convertToDto(user));
+        System.out.println(user);
         
         CustomUserDetails userDetails = new CustomUserDetails(user);
         String token = jwtUtil.generateToken(userDetails);

@@ -1,5 +1,6 @@
 package com.skillstorm.models;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import com.skillstorm.types.Role;
@@ -11,6 +12,7 @@ import jakarta.validation.constraints.Pattern;
 @Document(collection="users")
 public class User {
 	
+	@Id
 	String id;
 	@NotBlank
 	String firstName;
