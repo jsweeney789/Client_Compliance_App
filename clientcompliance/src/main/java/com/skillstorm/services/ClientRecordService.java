@@ -6,18 +6,27 @@ import java.util.stream.Collectors;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.dto.ClientRecordDto;
+import com.skillstorm.dto.ClientRecordOnboardDto;
 import com.skillstorm.exceptions.IdNotFoundException;
 import com.skillstorm.models.ClientRecord;
+import com.skillstorm.models.OnboardingCase;
 import com.skillstorm.repositories.ClientRecordRepository;
+import com.skillstorm.repositories.OnboardingCaseRepository;
+import com.skillstorm.types.ClientType;
+import com.skillstorm.types.CountryDomicile;
+import com.skillstorm.types.IndustrySector;
 
 @Service
 public class ClientRecordService {
 	
 	private final ClientRecordRepository clientrepo;
+	private final OnboardingCaseRepository onboardrepo;
 	
-	public ClientRecordService(ClientRecordRepository clientrepo)
+	public ClientRecordService(ClientRecordRepository clientrepo,OnboardingCaseRepository onboardrepo)
 	{
 		this.clientrepo = clientrepo;
+		this.onboardrepo = onboardrepo;
+		
 	}
 	
 	//Get by Id
@@ -67,6 +76,19 @@ public class ClientRecordService {
 		return this.clientrepo.save(record);	
 	}
 	
+	public List<ClientRecordOnboardDto> getAllClientRecordOnboard() 
+	{
+		List<ClientRecord> clientrecords = clientrepo.findAll().stream().filter(record-> !record.isDeleted()).collect(Collectors.toList());
+		return clientrepo.findAll().stream().filter(record-> !record.isDeleted()).map((client)-> 
+		new ClientRecordOnboardDto(client.getId(),client.getFirstName(), client.getLastName(),
+				client.getType(),client.getSector(),client.getDomicile(),client.getPhoneNumber(),
+				client.getEmail(), onboardrepo.findByClientId(client.getId()).orElse(null))).collect(Collectors.toList());
+		
+		//(String id, String firstName, String lastName, 
+//		ClientType type, IndustrySector sector, CountryDomicile domicile,
+//		String phoneNumber, String email, OnboardingCase boardcase)
+		
+	}
 	
 	
 

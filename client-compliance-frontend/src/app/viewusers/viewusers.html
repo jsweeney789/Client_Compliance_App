@@ -1,0 +1,173 @@
+<div class="card">
+  <p-table [value]="users" [paginator]="true" [rows]="10">
+    <ng-template #header>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+        <th>Role</th>
+        <th>Actions</th>
+      </tr>
+
+      <tr>
+        <th>
+          <p-columnFilter
+            field="firstName"
+            type="text"
+            placeholder="Search name"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="email"
+            type="text"
+            placeholder="Search email"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="phoneNumber"
+            type="text"
+            placeholder="Search in phone format"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+        <th>
+          <p-columnFilter
+            field="role"
+            type="text"
+            placeholder="Search role"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    <ng-template #body let-user>
+      <tr>
+        <td>
+          <a style="color: lightskyblue; cursor: pointer" (click)="openUser(user)">
+            {{ user.firstName }} {{ user.lastName }}
+          </a>
+        </td>
+
+        <td>{{ user.email }}</td>
+        <td>{{ user.phoneNumber }}</td>
+        <td>
+          <p-tag
+            [value]="
+              user.role === 'ADMINISTRATOR'
+                ? 'Administrator'
+                : user.role === 'COMPLIANCE_OFFICER'
+                  ? 'Compliance Officer'
+                  : user.role === 'RELATIONSHIP_MANAGER'
+                    ? 'Relationship Manager'
+                    : user.role
+            "
+            [severity]="getSeverity(user.role)"
+          ></p-tag>
+        </td>
+
+        <td class="flex gap-2">
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-sm p-button-warning"
+            (click)="openEdit(user)"
+          ></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-sm p-button-danger"
+            (click)="deleteUser(user.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="5">No users found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="showDialog"
+  header="User Details"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+>
+  <div *ngIf="selectedUser">
+    <p-fieldset legend="Name">
+      <p>{{ selectedUser.firstName }} {{ selectedUser.lastName }}</p>
+    </p-fieldset>
+
+    <p-fieldset legend="Email">
+      <p>{{ selectedUser.email }}</p>
+    </p-fieldset>
+
+    <p-fieldset legend="Phone">
+      <p>{{ selectedUser.phoneNumber }}</p>
+    </p-fieldset>
+
+    <p-fieldset legend="Role">
+      <p>{{ selectedUser.role }}</p>
+    </p-fieldset>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="showEditDialog"
+  header="Edit User"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+>
+  <form *ngIf="editUser" #userForm="ngForm">
+    <p-fieldset legend="First Name">
+      <input pInputText name="firstName" [(ngModel)]="editUser.firstName" required />
+    </p-fieldset>
+
+    <p-fieldset legend="Last Name">
+      <input pInputText name="lastName" [(ngModel)]="editUser.lastName" required />
+    </p-fieldset>
+
+    <p-fieldset legend="Email">
+      <input pInputText name="email" [(ngModel)]="editUser.email" required email />
+    </p-fieldset>
+
+    <p-fieldset legend="Phone">
+      <p-inputMask
+        mask="999-999-9999"
+        name="phoneNumber"
+        [(ngModel)]="editUser.phoneNumber"
+        required
+      >
+      </p-inputMask>
+    </p-fieldset>
+
+    <p-fieldset legend="Role">
+      <p-select
+        name="role"
+        [options]="roles"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="editUser.role"
+        required
+      >
+      </p-select>
+    </p-fieldset>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button label="Cancel" severity="secondary" (click)="showEditDialog = false"></p-button>
+
+      <p-button label="Save" icon="pi pi-check" (click)="saveUser()" [disabled]="userForm.invalid">
+      </p-button>
+    </div>
+  </form>
+</p-dialog>

@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.skillstorm.dto.UserDto;
 import com.skillstorm.exceptions.IdNotFoundException;
@@ -25,13 +27,15 @@ class UserTest {
 	User user = new User("69ed40c483ed8c22d027b8df","John","Tester","something@gmail.com", "333-333-3333","password",Role.RELATIONSHIP_MANAGER);
 	User user2 = new User("69eae79453a8074c5fc90491","Kim","Possible","email@yahoo.com", "444-444-4444","password2",Role.COMPLIANCE_OFFICER);
 	Optional<User> fakeuser = Optional.of(user);
-	UserDto userdto = new UserDto("Will","Tested","something@juno.com", "000-000-0000","password123",Role.ADMINISTRATOR);
+	UserDto userdto = new UserDto("69ed40c483ed8c22d027b8df","Will","Tested","something@juno.com", "000-000-0000","password123",Role.ADMINISTRATOR);
 	List<User> users = new ArrayList<>(List.of(user,user2));
 	
 	//Optional<List<User>> fakeusers = Optional.of(users);
 	
 	UserRepository userrepo;
 	UserService service;
+	@Autowired
+	PasswordEncoder encoder;
 
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
@@ -40,7 +44,7 @@ class UserTest {
 	@BeforeEach
 	void setUp() throws Exception {
 		userrepo = mock(UserRepository.class);
-		service = new UserService(userrepo);
+		service = new UserService(userrepo,encoder);
 	}
 
 	@Test

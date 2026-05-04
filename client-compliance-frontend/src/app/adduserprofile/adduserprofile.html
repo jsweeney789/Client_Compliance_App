@@ -1,0 +1,100 @@
+<div class="card max-w-2xl mx-auto p-4">
+
+  <h1 class="mb-4 text-center text-3xl"><b>Add User</b></h1>
+
+  <form #userForm="ngForm" class="flex flex-col gap-4">
+
+    <div class="flex flex-col gap-1">
+      <label>First Name</label>
+      <input
+        pInputText
+        name="firstName"
+        required
+        [(ngModel)]="newUser.firstName"
+        class="w-full"
+      />
+    </div>
+
+    <div class="flex flex-col gap-1">
+      <label>Last Name</label>
+      <input
+        pInputText
+        name="lastName"
+        required
+        [(ngModel)]="newUser.lastName"
+        class="w-full"
+      />
+    </div>
+
+
+    <div class="flex flex-col gap-1">
+      <label>Email</label>
+      <input
+        pInputText
+        name="email"
+        required
+        email
+        [(ngModel)]="newUser.email"
+        class="w-full"
+      />
+    </div>
+
+ 
+    <div class="flex flex-col gap-1">
+      <label>Password</label>
+      <input
+        pInputText
+        type="password"
+        name="password"
+        required
+        [(ngModel)]="newUser.password"
+        class="w-full"
+      />
+    </div>
+
+
+    <div class="flex flex-col gap-1">
+      <label>Phone</label>
+      <p-inputMask
+        name="phoneNumber"
+        mask="999-999-9999"
+        required
+        [(ngModel)]="newUser.phoneNumber"
+        styleClass="w-full"
+      ></p-inputMask>
+    </div>
+
+  
+    <div class="flex flex-col gap-1">
+      <label>Role</label>
+      <p-select
+        name="role"
+        required
+        [options]="roles"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="newUser.role"
+        class="w-full"
+      ></p-select>
+    </div>
+
+  
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button
+        type="button"
+        label="Reset"
+        severity="secondary"
+        (click)="resetUser()"
+      ></p-button>
+
+      <p-button
+        type="button"
+        label="Save"
+        icon="pi pi-check"
+        (click)="createUser()"
+        [disabled]="userForm.invalid"
+      ></p-button>
+    </div>
+
+  </form>
+</div>

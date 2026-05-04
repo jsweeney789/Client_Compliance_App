@@ -6,6 +6,8 @@ import { LoginService } from '../../services/LoginService';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { User } from '../../types/User';
 import { RegisterModal } from "../../components/auth/register-modal/register-modal";
+import { Router, RouterModule } from '@angular/router';
+import { AuthRoleService } from '../../services/authroleservice';
 
 @Component({
     selector: 'login-page',
@@ -13,7 +15,8 @@ import { RegisterModal } from "../../components/auth/register-modal/register-mod
     imports: [
     ButtonModule, DividerModule, InputTextModule,
     ReactiveFormsModule,
-    RegisterModal
+    RegisterModal,
+    RouterModule
 ],
     templateUrl: './login.html',
     styleUrls: ['./login.css']
@@ -24,7 +27,9 @@ export class LoginPageComponent {
 
     constructor(
         private loginService: LoginService,
-        private formBuilder : FormBuilder
+        private formBuilder : FormBuilder,
+        private router: Router,
+        private auth:AuthRoleService
     ) {}
 
     ngOnInit(): void {
@@ -49,6 +54,8 @@ export class LoginPageComponent {
         this.loginService.login(payload).subscribe({
             next: (res) => {
                 console.log('Logged in:', res)
+                this.auth.init();
+                this.router.navigate(['/userprofile']);
             },
             error: (err) => console.error(err)
         })

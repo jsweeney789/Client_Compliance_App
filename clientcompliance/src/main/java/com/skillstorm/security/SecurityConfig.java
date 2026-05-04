@@ -60,14 +60,14 @@ public class SecurityConfig {
 		.requestMatchers("/api/login/**").permitAll()
 		.requestMatchers("/api/login/").permitAll()
 		.requestMatchers("/oauth2/**", "/login/oauth2/**", "/oauth2/authorization/google").permitAll()
-		
+		.requestMatchers("/api/register/**").permitAll()
 		// api endpoints should have some kind of protection
 		
-		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
+		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR","BASIC_USER")
 		.requestMatchers(HttpMethod.PUT, "/api/cases/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
 		.requestMatchers("/api/cases/**").hasAnyAuthority("COMPLIANCE_OFFICER", "ADMINISTRATOR")
 		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()
-		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER","BASIC_USER")
+		//.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER","BASIC_USER")
 		.anyRequest().authenticated()
 		)
 		.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)

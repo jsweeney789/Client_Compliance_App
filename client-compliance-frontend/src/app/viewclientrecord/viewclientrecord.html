@@ -1,0 +1,251 @@
+<div class="card">
+  <p-table
+    [value]="clients"
+    [paginator]="true"
+    [rows]="10"
+    dataKey="id"
+    [tableStyle]="{ 'min-width': '70rem' }"
+  >
+    
+    <ng-template #header>
+      <tr>
+        <th>Name</th>
+        <th>Type</th>
+        <th>Country</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+
+     
+      <tr>
+        <th>
+          <p-columnFilter
+            field="firstName"
+            type="text"
+            placeholder="Search name"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+            field="type"
+            type="text"
+            placeholder="Search type"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+            field="domicile"
+            type="text"
+            placeholder="Search country"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+
+        <th>
+          <p-columnFilter
+            field="boardcase.stage"
+            type="text"
+            placeholder="Search status"
+            filterOn="input"
+          ></p-columnFilter>
+        </th>
+        <th></th>
+      </tr>
+    </ng-template>
+
+    
+    <ng-template #body let-client>
+      <tr>
+        <td>
+          <a
+            style="color: lightskyblue; text-decoration: underline; cursor: pointer"
+            (click)="openClient(client)"
+            >{{ client.firstName }} {{ client.lastName }}</a
+          >
+        </td>
+        <td>{{ client.type }}</td>
+        <td>{{ client.domicile }}</td>
+        <td>
+          <p-tag
+            [value]="client.boardcase?.stage || 'NO_CASE'"
+            [severity]="getSeverity(client.boardcase?.stage)"
+          ></p-tag>
+        </td>
+        <td class="flex gap-2">
+          <button
+            pButton
+            icon="pi pi-pencil"
+            class="p-button-sm p-button-warning"
+            (click)="openEdit(client)"
+          ></button>
+
+          <button
+            pButton
+            icon="pi pi-trash"
+            class="p-button-sm p-button-danger"
+            (click)="deleteClient(client.id)"
+          ></button>
+        </td>
+      </tr>
+    </ng-template>
+
+   
+    <ng-template #emptymessage>
+      <tr>
+        <td colspan="4">No clients found.</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+
+<p-dialog
+  [(visible)]="showDialog"
+  [modal]="true"
+  [style]="{ width: '50rem' }"
+  header="Client Details"
+>
+  <div *ngIf="selectedClient">
+    <p-fieldset legend="Name">
+      <p>{{ selectedClient.firstName }} {{ selectedClient.lastName }}</p>
+    </p-fieldset>
+
+    <p-fieldset legend="Email">
+      <p>{{ selectedClient.email }}</p>
+    </p-fieldset>
+    <p-fieldset legend="Phone">
+      <p>{{ selectedClient.phoneNumber }}</p>
+    </p-fieldset>
+    <p-fieldset legend="Type">
+      <p>{{ selectedClient.type }}</p>
+    </p-fieldset>
+    <p-fieldset legend="Sector">
+      <p>{{ selectedClient.sector }}</p>
+    </p-fieldset>
+    <p-fieldset legend="Domicile">
+      <p>{{ selectedClient.domicile }}</p>
+    </p-fieldset>
+
+    <hr />
+
+   
+    <p-fieldset legend="Status">
+      <p-tag [value]="selectedClient.boardcase?.stage"></p-tag>
+    </p-fieldset>
+    <hr />
+
+   
+    <h4 class="p-3 text-center"><b>Checks</b></h4>
+    <p-carousel [value]="selectedClient.boardcase?.checks || []">
+      <ng-template let-check pTemplate="item">
+        <div class="p-3 text-center">
+         
+
+          <p><b>Type:</b> {{ check.type }}</p>
+          <p><b>Result:</b> {{ check.result }}</p>
+          <p><b>Date:</b> {{ check.date | date: 'short' }}</p>
+          <p><b>Notes:</b> {{ check.notes }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
+
+    <hr />
+
+ 
+    <h4 class="p-3 text-center"><b>Notes</b></h4>
+    <p-carousel [value]="selectedClient.boardcase?.notes || []">
+      <ng-template let-note pTemplate="item">
+        <div class="p-3 text-center">
+          <p><b>Author:</b> {{ note.authorName }}</p>
+          <p><b>Text:</b> {{ note.text }}</p>
+          <p><b>Date:</b> {{ note.timeStamp | date: 'short' }}</p>
+        </div>
+      </ng-template>
+    </p-carousel>
+  </div>
+</p-dialog>
+
+<p-dialog
+  [(visible)]="showEditDialog"
+  [modal]="true"
+  [style]="{ width: '40rem' }"
+  header="Edit Client"
+>
+  <form *ngIf="editClient" #clientForm="ngForm">
+    <p-fieldset legend="First Name">
+      <input pInputText name="firstName" required [(ngModel)]="editClient.firstName" />
+    </p-fieldset>
+
+    <p-fieldset legend="Last Name">
+      <input pInputText name="lastName" required [(ngModel)]="editClient.lastName" />
+    </p-fieldset>
+
+    <p-fieldset legend="Email">
+      <input pInputText name="email" required email [(ngModel)]="editClient.email" />
+    </p-fieldset>
+
+    <p-fieldset legend="Phone">
+      <p-inputMask
+        name="phoneNumber"
+        mask="999-999-9999"
+        required
+        [(ngModel)]="editClient.phoneNumber"
+      ></p-inputMask>
+    </p-fieldset>
+
+    <p-fieldset legend="Sector">
+      <p-select
+        name="sector"
+        required
+        [options]="sectors"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="editClient.sector"
+        class="w-full max-w-md"
+      >
+      </p-select>
+    </p-fieldset>
+
+    <p-fieldset legend="Domicile">
+      <p-select
+        name="domicile"
+        required
+        [options]="domiciles"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="editClient.domicile"
+        class="w-full max-w-md"
+      >
+      </p-select>
+    </p-fieldset>
+
+    <p-fieldset legend="Type">
+      <p-select
+        name="role"
+        required
+        [options]="clienttypes"
+        optionLabel="label"
+        optionValue="value"
+        [(ngModel)]="editClient.type"
+        class="w-full max-w-md"
+      >
+      </p-select>
+    </p-fieldset>
+
+    
+    <div class="flex justify-end gap-2 mt-4">
+      <p-button  type="button" label="Cancel" severity="secondary" (click)="showEditDialog = false"></p-button>
+
+      <p-button
+        type="button"
+        label="Save"
+        icon="pi pi-check"
+        (click)="saveClient()"
+        [disabled]="clientForm.invalid"
+      ></p-button>
+    </div>
+  </form>
+</p-dialog>

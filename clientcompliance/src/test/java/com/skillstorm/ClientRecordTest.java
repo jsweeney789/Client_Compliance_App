@@ -18,6 +18,7 @@ import com.skillstorm.exceptions.IdNotFoundException;
 import com.skillstorm.models.ClientRecord;
 import com.skillstorm.models.User;
 import com.skillstorm.repositories.ClientRecordRepository;
+import com.skillstorm.repositories.OnboardingCaseRepository;
 import com.skillstorm.services.ClientRecordService;
 import com.skillstorm.types.ClientType;
 import com.skillstorm.types.CountryDomicile;
@@ -35,14 +36,17 @@ class ClientRecordTest {
 	ClientRecordRepository clientrepo;
 	ClientRecordService service;
 	
+	OnboardingCaseRepository onboardrepo;
+	
 	@BeforeAll
 	static void setUpBeforeClass() throws Exception {
 	}
 
 	@BeforeEach
 	void setUp() throws Exception {
+		onboardrepo = mock(OnboardingCaseRepository.class);
 		clientrepo = mock(ClientRecordRepository.class);
-		service = new ClientRecordService(clientrepo);
+		service = new ClientRecordService(clientrepo,onboardrepo);
 	}
 
 	@Test

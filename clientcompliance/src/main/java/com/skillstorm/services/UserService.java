@@ -3,6 +3,7 @@ package com.skillstorm.services;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.skillstorm.dto.UserDto;
@@ -14,10 +15,12 @@ import com.skillstorm.repositories.UserRepository;
 public class UserService {
 	
 private final UserRepository userrepo;
+private PasswordEncoder encoder;
 	
-	public UserService(UserRepository userrepo)
+	public UserService(UserRepository userrepo, PasswordEncoder encoder)
 	{
 		this.userrepo = userrepo;
+		this.encoder = encoder;
 	}
 	
 	//Get by Id
@@ -37,8 +40,9 @@ private final UserRepository userrepo;
 	//Add
 		public User addUser(UserDto newuser)
 		{
-		
-			return this.userrepo.save(UserDto.convertToUser(newuser));
+			User user = UserDto.convertToUser(newuser);
+			user.setPassword(this.encoder.encode(newuser.password()));
+			return this.userrepo.save(user);
 				
 			
 		}

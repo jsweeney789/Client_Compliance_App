@@ -2,7 +2,7 @@ package com.skillstorm.types;
 
 public enum ClientType {
 	
-	INDVIDUAL("Indvidual"),
+	INDIVIDUAL("Individual"),
 	CORPORATE("Corporate"),
 	INSTITUTIONAL("Institutional");
 

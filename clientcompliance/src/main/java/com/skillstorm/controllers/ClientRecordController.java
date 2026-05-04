@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.skillstorm.dto.ClientRecordDto;
+import com.skillstorm.dto.ClientRecordOnboardDto;
 import com.skillstorm.exceptions.IdNotFoundException;
 import com.skillstorm.models.ClientRecord;
 import com.skillstorm.services.ClientRecordService;
@@ -79,6 +80,12 @@ private final ClientRecordService clientrecord;
 			
 			return ResponseEntity.notFound().header("message", exception.getMessage()).build(); 
 		}
+	}
+	
+	@GetMapping("/clientOnboard")
+	public ResponseEntity<List<ClientRecordOnboardDto>> clientrecordsOnBoard()
+	{
+		return ResponseEntity.ok(this.clientrecord.getAllClientRecordOnboard());
 	}
 	
 	
