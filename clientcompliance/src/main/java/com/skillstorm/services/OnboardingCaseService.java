@@ -40,8 +40,14 @@ public class OnboardingCaseService {
         return true;
     }
 
-    public List<OnboardingCase> getCasesByClientId(String clientId) {
-        return repo.findByClientId(clientId);
+    public OnboardingCase getCasesByClientId(String clientId) {
+        Optional<OnboardingCase> caseFound = this.repo.findById(clientId);
+        if (caseFound.isPresent()) {
+            return caseFound.get();
+        } else {
+            throw new NoSuchElementException("No onboarding case with id: " + clientId);
+        }
+        
     }
     
 }
