@@ -1,24 +1,24 @@
 <div class="mb-4 p-8 flex items-center justify-center">
     <p-card *ngIf="!editButton" [style]="{ width: '30rem', overflow: 'hidden' }">
         <ng-template #header>
-            <img *ngIf="user.role==='COMPLIANCE_OFFICER'" alt="Card" class="w-full h-60 object-contain"
+            <img *ngIf="user?.role==='COMPLIANCE_OFFICER'" alt="Card" class="w-full h-60 object-contain"
                 src="images/complianceofficer.png" />
-            <img *ngIf="user.role==='RELATIONSHIP_MANAGER'" alt="Card" class="w-full h-60 object-contain"
+            <img *ngIf="user?.role==='RELATIONSHIP_MANAGER'" alt="Card" class="w-full h-60 object-contain"
                 src="images/relationshipmanager.png" />
-            <img *ngIf="user.role==='ADMINISTRATOR'" alt="Card" class="w-full h-60 object-contain"
+            <img *ngIf="user?.role==='ADMINISTRATOR'" alt="Card" class="w-full h-60 object-contain"
                 src="images/administrator.png" />
         </ng-template>
-        <ng-template #title> {{user.firstname}} {{user.lastname}}</ng-template>
-        <ng-template #subtitle> {{ roleLabel[user.role]}} </ng-template>
+        <ng-template #title> {{user?.firstName}} {{user?.lastName}}</ng-template>
+        <ng-template #subtitle>{{ roleLabel[user?.role ?? ''] }} </ng-template>
         <p-fieldset legend="Email">
             <p>
-                {{user.email}}
+                {{user?.email}}
             </p>
         </p-fieldset>
         <p-divider type="solid" />
         <p-fieldset legend="Phone Number">
             <p>
-                {{user.phonenumber}}
+                {{user?.phoneNumber}}
             </p>
         </p-fieldset>
         <p-divider type="solid" />
@@ -36,9 +36,9 @@
     </p-card>
     
     <!-- Edit Card Below -->
-    <form #userForm="ngForm">
+    <form form *ngIf="editButton && edituser" #userForm="ngForm">
 
-        <p-card *ngIf="editButton" [style]="{ width: '30rem', overflow: 'hidden' }">
+        <p-card  [style]="{ width: '30rem', overflow: 'hidden' }">
 
             <ng-template #header>
                 <img *ngIf="edituser.role==='COMPLIANCE_OFFICER'" class="w-full h-60 object-contain"
@@ -50,12 +50,12 @@
             </ng-template>
 
             <p-fieldset legend="First Name">
-                <input pInputText name="firstname" required [(ngModel)]="edituser.firstname" class="w-full max-w-md"
+                <input pInputText name="firstname" required [(ngModel)]="edituser.firstName" class="w-full max-w-md"
                     autocomplete="off" />
             </p-fieldset>
 
             <p-fieldset legend="Last Name">
-                <input pInputText name="lastname" required [(ngModel)]="edituser.lastname" class="w-full max-w-md"
+                <input pInputText name="lastname" required [(ngModel)]="edituser.lastName" class="w-full max-w-md"
                     autocomplete="off" />
             </p-fieldset>
 
@@ -65,15 +65,15 @@
             </p-fieldset>
 
             <p-fieldset legend="Phone Number">
-                <p-inputMask name="phonenumber" required [(ngModel)]="edituser.phonenumber" mask="999-999-9999"
+                <p-inputMask name="phonenumber" required [(ngModel)]="edituser.phoneNumber" mask="999-999-9999"
                     styleClass="w-full max-w-md"> </p-inputMask>
             </p-fieldset>
-
+            <div *ngIf="user?.role !== 'ADMINISTRATOR' ">
             <p-fieldset legend="Role">
                 <p-select name="role" required [options]="roleoptions" optionLabel="label" optionValue="value"
                     [(ngModel)]="edituser.role" class="w-full max-w-md"> </p-select>
             </p-fieldset>
-
+            </div>
             <ng-template #footer>
 
                 <div class="flex gap-4 mt-2"></div>
@@ -82,7 +82,7 @@
                     <p-button label="Cancel" severity="secondary" class="w-full" [outlined]="true" styleClass="w-full"
                         (click)="cancelEdit()"> </p-button>
 
-                    <p-button label="Save" class="w-full" styleClass="w-full" (click)="saveEdit(edituser)"
+                    <p-button label="Save" class="w-full" styleClass="w-full" (click)="saveEdit()"
                         [disabled]="userForm.invalid"> </p-button>
                 </div>
 

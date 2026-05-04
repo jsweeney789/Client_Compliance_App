@@ -91,5 +91,11 @@ public class LoginController {
         
         //return ResponseEntity.ok(token);
     }
+    
+    @GetMapping("/me")
+    public ResponseEntity<UserDto> retrieveUser(Authentication auth) {
+        CustomUserDetails user = (CustomUserDetails) auth.getPrincipal();
+        return ResponseEntity.ok(UserDto.convertToDto(user.getUser()));
+    }
 
 }
