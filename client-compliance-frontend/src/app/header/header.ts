@@ -41,34 +41,7 @@ export class Header {
       label: 'User Profile',
       icon: 'pi pi-user',
       items: [
-        { label: 'View Users', routerLink: '/viewusers' },
-        { label: 'Add User', routerLink: '/adduser' },
-      ],
-    },
-    {
-      label: 'Client Records',
-      icon: 'pi pi-address-book',
-      items: [
-        { label: 'View Records', routerLink: '/viewclientrecord' },
-        { label: 'Add Records', routerLink: '/addclientrecord' },
-      ],
-    },
-
-    {
-      label: 'Onboarding Placeholder',
-      icon: 'pi-briefcase',
-      items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
-      ],
-    },
-  ];
-
-  relitems: MenuItem[] = [
-    {
-      label: 'User Profile',
-      icon: 'pi pi-user',
-      items: [
+        { label: 'View Profile', routerLink: '/userprofile' },
         { label: 'View Users', routerLink: '/viewusers' },
         { label: 'Add User', routerLink: '/adduser' },
       ],
@@ -92,8 +65,41 @@ export class Header {
     },
   ];
 
+  relitems: MenuItem[] = [
+    {
+      label: 'User Profile',
+      icon: 'pi pi-user',
+      items: [
+        { label: 'View Profile', routerLink: '/userprofile' },
+      ],
+    },
+    {
+      label: 'Client Records',
+      icon: 'pi pi-address-book',
+      items: [
+        { label: 'View Records', routerLink: '/viewclientrecord' },
+        { label: 'Add Records', routerLink: '/addclientrecord' },
+      ],
+    },
+
+    {
+      label: 'Onboarding Placeholder',
+      icon: 'pi pi-briefcase',
+      items: [
+        { label: 'Placeholder', routerLink: '/' },
+        { label: 'Placeholder', routerLink: '/' },
+      ],
+    },
+  ];
+
   comitems: MenuItem[] = [
-   
+    {
+      label: 'User Profile',
+      icon: 'pi pi-user',
+      items: [
+        { label: 'View Profile', routerLink: '/userprofile' },
+      ],
+    },
     {
       label: 'Client Records',
       icon: 'pi pi-address-book',
@@ -104,7 +110,7 @@ export class Header {
 
     {
       label: 'Onboarding Placeholder',
-      icon: 'pi-briefcase',
+      icon: 'pi pi-briefcase',
       items: [
         { label: 'Placeholder', routerLink: '/' },
         { label: 'Placeholder', routerLink: '/' },

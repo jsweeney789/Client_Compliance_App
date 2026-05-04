@@ -83,7 +83,7 @@
             (click)="openEdit(client)"
           ></button>
 
-          <button
+          <button *ngIf="role === 'RELATIONSHIP_MANAGER' || role === 'ADMINISTRATOR'"
             pButton
             icon="pi pi-trash"
             class="p-button-sm p-button-danger"

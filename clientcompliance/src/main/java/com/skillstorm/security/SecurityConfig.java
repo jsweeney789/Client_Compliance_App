@@ -63,7 +63,7 @@ public class SecurityConfig {
 		.requestMatchers("/api/register/**").permitAll()
 		// api endpoints should have some kind of protection
 		
-		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR","BASIC_USER")
+		.requestMatchers("/api/clientrecord/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR","BASIC_USER","COMPLIANCE_OFFICER")
 		.requestMatchers(HttpMethod.PUT, "/api/cases/**").hasAnyAuthority("RELATIONSHIP_MANAGER", "ADMINISTRATOR")
 		.requestMatchers("/api/cases/**").hasAnyAuthority("COMPLIANCE_OFFICER", "ADMINISTRATOR")
 		.requestMatchers("/oauth2/**", "/login/oauth2/**").permitAll()

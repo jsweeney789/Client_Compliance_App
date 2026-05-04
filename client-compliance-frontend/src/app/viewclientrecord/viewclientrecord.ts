@@ -15,6 +15,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputMaskModule } from 'primeng/inputmask';
 import { AutoCompleteModule } from 'primeng/autocomplete';
 import { SelectModule } from 'primeng/select';
+import { AuthRoleService } from '../services/authroleservice';
 
 
 @Component({
@@ -28,7 +29,8 @@ import { SelectModule } from 'primeng/select';
 export class Viewclientrecord {
 
   
-  constructor(private clientservice: Clientrecordservice,private router: Router,private route:ActivatedRoute) {}
+  constructor(private clientservice: Clientrecordservice,private router: Router,private route:ActivatedRoute,
+    private auth: AuthRoleService) {this.role = this.auth.role()}
   clients: ClientRecord[] = [];
 
   selectedClient?: ClientRecord;
@@ -36,6 +38,8 @@ export class Viewclientrecord {
 
   showEditDialog = false;
   editClient?: ClientRecord;
+
+  role:String | undefined;
 
  sectors = [
   { label: 'Agriculture', value: 'AGRICULTURE' },

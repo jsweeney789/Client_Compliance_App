@@ -68,12 +68,12 @@
                 <p-inputMask name="phonenumber" required [(ngModel)]="edituser.phoneNumber" mask="999-999-9999"
                     styleClass="w-full max-w-md"> </p-inputMask>
             </p-fieldset>
-
+            <div *ngIf="user?.role !== 'ADMINISTRATOR' ">
             <p-fieldset legend="Role">
                 <p-select name="role" required [options]="roleoptions" optionLabel="label" optionValue="value"
                     [(ngModel)]="edituser.role" class="w-full max-w-md"> </p-select>
             </p-fieldset>
-
+            </div>
             <ng-template #footer>
 
                 <div class="flex gap-4 mt-2"></div>
