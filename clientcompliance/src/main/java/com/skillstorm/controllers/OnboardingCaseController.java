@@ -60,9 +60,9 @@ public class OnboardingCaseController {
     }    
 
     @GetMapping("/client/{id}")
-    public ResponseEntity<List<OnboardingCase>> getOnboardingCaseByClientId(@PathVariable String clientId) {
-        List<OnboardingCase> cases = service.getCasesByClientId(clientId);
-        return new ResponseEntity<List<OnboardingCase>>(cases, HttpStatus.OK);
+    public ResponseEntity<OnboardingCase> getOnboardingCaseByClientId(@PathVariable String clientId) {
+        OnboardingCase onboardingCase = service.getCasesByClientId(clientId);
+        return new ResponseEntity<OnboardingCase>(onboardingCase, HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
