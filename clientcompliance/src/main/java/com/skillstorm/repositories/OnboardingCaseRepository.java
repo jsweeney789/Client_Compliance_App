@@ -10,7 +10,5 @@ import com.skillstorm.models.User;
 
 @Repository
 public interface OnboardingCaseRepository extends MongoRepository<OnboardingCase, String>{
-
-	
-	Optional<OnboardingCase> findByClientId(String id); 
+	Optional<OnboardingCase> findByClientId(String clientId); 
 }

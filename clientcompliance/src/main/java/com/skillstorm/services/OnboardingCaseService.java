@@ -39,5 +39,9 @@ public class OnboardingCaseService {
         repo.delete(caseToDelete);
         return true;
     }
+
+    public List<OnboardingCase> getCasesByClientId(String clientId) {
+        return repo.findByClientId(clientId);
+    }
     
 }

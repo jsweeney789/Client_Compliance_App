@@ -4,7 +4,6 @@ import { DividerModule } from 'primeng/divider';
 import { InputTextModule } from 'primeng/inputtext';
 import { LoginService } from '../../services/LoginService';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
-import { User } from '../../types/User';
 import { RegisterModal } from "../../components/auth/register-modal/register-modal";
 import { Router, RouterModule } from '@angular/router';
 import { AuthRoleService } from '../../services/authroleservice';
@@ -55,7 +54,8 @@ export class LoginPageComponent {
             next: (res) => {
                 console.log('Logged in:', res)
                 this.auth.init();
-                this.router.navigate(['/userprofile']);
+                this.router.navigate(['/home']);
+                
             },
             error: (err) => console.error(err)
         })
@@ -66,6 +66,7 @@ export class LoginPageComponent {
         next: (res) => {
             console.log('Registered:', res);
             this.showRegisterDialog.set(false);
+            this.router.navigate(['/home']);
         },
         error: (err) => {
             console.error(err);

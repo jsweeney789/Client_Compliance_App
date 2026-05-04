@@ -1,0 +1,46 @@
+<div class="min-h-screen flex items-center justify-center">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+
+    <p-card class="w-64">
+      <ng-template #header>
+        <img class="w-full h-32 object-cover"
+             src="assets/images/user-profile-image.avif" />
+      </ng-template>
+      <ng-template #title>Profile</ng-template>
+      <p>Manage your profile</p>
+      <ng-template #footer>
+        <p-button label="Go"
+                (onClick)="goTo('profile')"
+                styleClass="w-full" />
+        </ng-template>
+    </p-card>
+
+    <p-card class="w-64">
+      <ng-template #header>
+        <img class="w-full h-32 object-cover"
+             src="assets/images/cases-image.webp" />
+      </ng-template>
+      <ng-template #title>Cases</ng-template>
+      <p>View all cases</p>
+      <ng-template #footer>
+        <p-button label="Go"
+                    (onClick)="goTo('cases')"
+                    styleClass="w-full" />
+        </ng-template>
+    </p-card>
+
+    <p-card class="w-64">
+      <ng-template #header>
+        <img class="w-full h-32 object-cover"
+             src="assets/images/clients-1.jpg" />
+      </ng-template>
+      <ng-template #title>Clients</ng-template>
+      <p>Browse clients</p>
+      <ng-template #footer>
+            <p-button label="Go"
+                    (onClick)="goTo('clients')"
+                    styleClass="w-full" />
+        </ng-template>
+    </p-card>
+  </div>
+</div>
