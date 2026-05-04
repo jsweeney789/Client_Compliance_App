@@ -16,6 +16,7 @@ export class LoginService {
       data,
       { withCredentials: true, 
         responseType: 'text' // we are returning a token directly for the moment
+        
       }
     );
   }

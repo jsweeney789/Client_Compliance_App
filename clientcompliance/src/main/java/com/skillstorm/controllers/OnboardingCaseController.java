@@ -59,6 +59,12 @@ public class OnboardingCaseController {
         return new ResponseEntity<>(onboardingCase, HttpStatus.OK);
     }    
 
+    @GetMapping("/client/{id}")
+    public ResponseEntity<List<OnboardingCase>> getOnboardingCaseByClientId(@PathVariable String clientId) {
+        List<OnboardingCase> cases = service.getCasesByClientId(clientId);
+        return new ResponseEntity<List<OnboardingCase>>(cases, HttpStatus.OK);
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<OnboardingCase> updateOnboardingCase(@PathVariable String id, @Valid @RequestBody OnboardingCase newCase) {
         OnboardingCase onboardingCase = service.saveCase(newCase);
