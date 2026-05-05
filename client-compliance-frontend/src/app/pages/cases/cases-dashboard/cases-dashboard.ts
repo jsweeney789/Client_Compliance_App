@@ -8,9 +8,17 @@ import { CaseColumnModel } from '../../../types/CaseColumnModel';
 import { CaseColumnComponent } from '../../../components/case-column/case-column';
 import { OnboardingCaseService } from '../../../services/OnboardingCaseService';
 import { DetailModal } from '../../../components/detail-modal/detail-modal';
+import { ButtonModule } from 'primeng/button';
+import { Router } from '@angular/router';
+import { FormsModule } from '@angular/forms';
+import { DatePickerModule } from 'primeng/datepicker';
+
+
 @Component({
   selector: 'app-cases-dashbaord',
-  imports: [DrawerModule, CaseColumnComponent, DetailModal],
+  imports: [DrawerModule, CaseColumnComponent, DetailModal, ButtonModule,
+    FormsModule, DatePickerModule
+  ],
   templateUrl: './cases-dashboard.html',
   styleUrl: './cases-dashboard.css',
 })
@@ -19,7 +27,7 @@ export class CasesDashbaord {
   showDialog = false;
   selectedClient: ClientRecord | undefined = undefined;
 
-
+  allCases: BoardCase[] = [];
   columns: CaseColumnModel[] = [
     {
       id: 'initiated',
@@ -56,7 +64,8 @@ export class CasesDashbaord {
   constructor(
     private clientservice: Clientrecordservice, 
     private caseservice: OnboardingCaseService,
-    private auth: AuthRoleService
+    private auth: AuthRoleService,
+    private router: Router
   ) {this.role = this.auth.role()}
   role: string | undefined;
   
@@ -75,8 +84,11 @@ export class CasesDashbaord {
               col => col.stage === record.boardcase!.stage // we checked if record.boardcase was truthy above so we can say it's not undefined here
             );
 
-            if (column && record.boardcase) {
-              column.cases.push(record.boardcase);
+            if (record.boardcase) {
+              this.allCases.push(record.boardcase);
+              console.log(record.boardcase);
+              if (column)
+                column.cases.push(record.boardcase);
             }
           }
         }
@@ -147,5 +159,48 @@ export class CasesDashbaord {
     if (this.selectedClient) this.selectedClient.boardcase = caseItem;
     this.showDialog = true;
   }
-  
+  goToAddCase() {
+    this.router.navigate([`/addcase`]);
+  } 
+
+  searchTerm = '';
+  showDatePicker = false;
+  dateRange: Date[] | null = null;
+  onSearchChange() {}
+  get filteredColumns(): CaseColumnModel[] {
+
+    const term = this.searchTerm.toLowerCase().trim();
+
+    const filteredCases = this.allCases.filter(c => {
+      const client = this.clientMap.get(c.clientId);
+
+      // TEXT FILTER
+      const matchesText =
+        !term ||
+        client?.firstName?.toLowerCase().includes(term) ||
+        client?.lastName?.toLowerCase().includes(term) ||
+        client?.email?.toLowerCase().includes(term) ||
+        c.id?.toLowerCase().includes(term);
+
+      // DATE FILTER
+      let matchesDate = true;
+
+      if (this.dateRange && this.dateRange.length === 2) {
+        const [start, end] = this.dateRange;
+
+        const caseDate = new Date(c.dateInitiated);
+
+        matchesDate =
+          caseDate >= start &&
+          caseDate <= end;
+      }
+
+      return matchesText && matchesDate;
+    });
+
+    return this.columns.map(col => ({
+      ...col,
+      cases: filteredCases.filter(c => c.stage === col.stage)
+    }));
+  }
 }

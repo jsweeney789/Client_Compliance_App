@@ -1,6 +1,37 @@
-<div class="row">
-  <!-- Row for search bar and add button-->
-  <div></div>
+
+<div class="case-toolbar">
+
+  <!-- SEARCH (takes most of the space) -->
+  <span class="p-input-icon-left search-box">
+    <i class="pi pi-search"></i>
+
+    <input
+      pInputText
+      type="text"
+      placeholder="Search cases..."
+      [(ngModel)]="searchTerm"
+      (input)="onSearchChange()"
+    />
+  </span>
+
+  <!-- DATE PICKER -->
+  <p-datepicker
+    [(ngModel)]="dateRange"
+    selectionMode="range"
+    [showIcon]="true"
+    inputId="caseDateFilter"
+    [showOnFocus]="false"
+    placeholder="Filter by date"
+  ></p-datepicker>
+
+
+  <!-- ACTION BUTTON -->
+  <p-button
+    label="Add Case"
+    icon="pi pi-plus"
+    styleClass="p-button-primary"
+    (onClick)="goToAddCase()"
+  ></p-button>
 
 </div>
 
@@ -8,7 +39,7 @@
 
   
 
-  @for (column of columns; track $index) {
+  @for (column of filteredColumns; track column.id) {
     
       <app-case-column
         [title]="column.name"
