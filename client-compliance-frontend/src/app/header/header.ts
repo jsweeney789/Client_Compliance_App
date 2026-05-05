@@ -38,6 +38,11 @@ export class Header {
 
   adminitems: MenuItem[] = [
     {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
+    {
       label: 'User Profile',
       icon: 'pi pi-user',
       items: [
@@ -67,6 +72,11 @@ export class Header {
 
   relitems: MenuItem[] = [
     {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
+    {
       label: 'User Profile',
       icon: 'pi pi-user',
       items: [
@@ -93,6 +103,11 @@ export class Header {
   ];
 
   comitems: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
     {
       label: 'User Profile',
       icon: 'pi pi-user',

@@ -1,0 +1,67 @@
+<p-dialog
+  [(visible)]="visible"
+  [modal]="true"
+  [style]="{ width: '50rem' }"
+  header="Client Details"
+>
+  @if (client; as client) {
+
+    <!-- BASIC INFO -->
+    @for (field of clientFields; track field.label) {
+      <p-fieldset [legend]="field.label">
+        <p>{{ field.value(client) }}</p>
+      </p-fieldset>
+    }
+
+    <hr />
+
+    <!-- STATUS -->
+    <p-fieldset legend="Status">
+      <p-tag [value]="client.boardcase?.stage"></p-tag>
+    </p-fieldset>
+
+    <hr />
+
+    <!-- CHECKS -->
+    <h4 class="p-3 text-center"><b>Checks</b></h4>
+
+    @if (client.boardcase) {
+
+        @if (client.boardcase.checks.length) {
+            <p-carousel [value]="client.boardcase.checks">
+            <ng-template let-check pTemplate="item">
+                <div class="p-3 text-center">
+                <p><b>Type:</b> {{ check.type }}</p>
+                <p><b>Result:</b> {{ check.result }}</p>
+                <p><b>Date:</b> {{ check.date | date: 'short' }}</p>
+                <p><b>Notes:</b> {{ check.notes }}</p>
+                </div>
+            </ng-template>
+            </p-carousel>
+        } @else {
+            <p class="text-center text-muted">No checks available</p>
+        }
+
+    }
+
+    <hr />
+
+    <!-- NOTES -->
+    <h4 class="p-3 text-center"><b>Notes</b></h4>
+    @if (client.boardcase) {
+        @if (client.boardcase.notes.length) {
+        <p-carousel [value]="client.boardcase.notes">
+            <ng-template let-note pTemplate="item">
+            <div class="p-3 text-center">
+                <p><b>Author:</b> {{ note.authorName }}</p>
+                <p><b>Text:</b> {{ note.text }}</p>
+                <p><b>Date:</b> {{ note.timeStamp | date: 'short' }}</p>
+            </div>
+            </ng-template>
+        </p-carousel>
+        } @else {
+        <p class="text-center text-muted">No notes available</p>
+        }
+    }
+  }
+</p-dialog>

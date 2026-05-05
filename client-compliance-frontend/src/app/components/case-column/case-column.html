@@ -1,0 +1,14 @@
+<div class="column">
+    <h1>{{ title }}</h1>
+    @for (c of cases; track c.id) {
+        <onboarding-case-card
+            [onboardingCase]="c"
+            [clientInfo]="clientMap.get(c.clientId)!"
+            [canMoveLeft]="columnIndex > 0"
+            [canMoveRight]="columnIndex < totalColumns - 1"
+            (moveLeft)="moveLeft.emit($event)"
+            (moveRight)="moveRight.emit($event)"
+            (viewDetails)="viewDetails.emit($event)">
+        </onboarding-case-card>
+    }
+</div>

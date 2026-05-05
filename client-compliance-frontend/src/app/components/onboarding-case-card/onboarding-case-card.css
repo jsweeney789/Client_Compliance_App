@@ -1,9 +1,32 @@
-.case-card {
-  margin-bottom: 10px;
-  cursor: pointer;
-  transition: 0.2s ease;
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-.case-card:hover {
-  transform: translateY(-2px);
+.card-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* The colored box (or dot) */
+.status-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 3px; /* square with slight rounding */
+}
+
+/* States */
+.status-dot.pass {
+  background-color: #22c55e; /* green */
+}
+
+.status-dot.fail {
+  background-color: #ef4444; /* red */
+}
+
+.status-dot.pending {
+  background-color: #eab308; /* yellow */
 }

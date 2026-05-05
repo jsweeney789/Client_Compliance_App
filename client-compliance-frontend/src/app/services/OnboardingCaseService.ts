@@ -7,7 +7,7 @@ import { Observable, catchError, throwError } from 'rxjs';
   providedIn: 'root'
 })
 export class OnboardingCaseService {
-    private readonly URL = `localhost:8080/api/cases`
+    private readonly URL = `http://localhost:8080/api/cases`
     constructor (
         private http: HttpClient 
     ) {}

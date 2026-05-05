@@ -3,7 +3,6 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { User } from '../../../types/User';
 
 @Component({
   selector: 'app-register-modal',
