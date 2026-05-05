@@ -6,7 +6,7 @@ import { Viewclientrecord } from './viewclientrecord/viewclientrecord';
 import { Addclientrecord } from './addclientrecord/addclientrecord';
 import { Viewusers } from './viewusers/viewusers';
 import { Adduserprofile } from './adduserprofile/adduserprofile';
-import { CasesDashbaord } from './pages/cases/cases-dashbaord/cases-dashbaord';
+import { CasesDashbaord } from './pages/cases/cases-dashboard/cases-dashboard';
 import { Addcase } from './pages/cases/addcase/addcase';
 
 export const routes: Routes = [

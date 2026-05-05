@@ -1,0 +1,19 @@
+<p-card class="case-card" (click)="onClick()">
+
+  <!-- <ng-template pTemplate="title">
+    {{ caseItem.clientName }}
+  </ng-template>                           <------ PUT STUFF IN CARD
+
+  <ng-template pTemplate="subtitle">
+    {{ caseItem.email }}
+  </ng-template>
+
+  <p>{{ caseItem.country }}</p> -->
+
+  <!-- Optional KYC indicator -->
+  <p>
+    Checks:
+    {{ getCompletedChecks() }}/4
+  </p>
+
+</p-card>

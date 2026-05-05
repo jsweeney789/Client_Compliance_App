@@ -66,7 +66,7 @@ export class LoginPageComponent {
         next: (res) => {
             console.log('Registered:', res);
             this.showRegisterDialog.set(false);
-             this.auth.init();
+            this.auth.init();
             this.router.navigate(['/home']);
         },
         error: (err) => {

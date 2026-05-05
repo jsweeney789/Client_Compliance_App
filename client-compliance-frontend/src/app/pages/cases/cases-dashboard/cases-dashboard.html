@@ -1,0 +1,67 @@
+<div class="board flex items-center justify-center">
+
+  <!-- INITIATED -->
+  <div class="column">
+    <h3>Initiated</h3>
+
+    @for (caseItem of getCasesByStage('INITIATED'); track caseItem.id) {
+      <onboarding-case-card
+        [caseItem]="caseItem"
+        (cardClick)="openCase($event)">
+      </onboarding-case-card>
+    }
+  </div>
+
+  <!-- UNDER REVIEW -->
+  <div class="column">
+    <h3>Under Review</h3>
+
+    @for (caseItem of getCasesByStage('UNDER_REVIEW'); track caseItem.id) {
+      <onboarding-case-card
+        [caseItem]="caseItem"
+        (cardClick)="openCase($event)">
+      </onboarding-case-card>
+    }
+    
+  </div>
+
+  <!-- KYC IN PROGRESS -->
+  <div class="column">
+    <h3>KYC In Progress</h3>
+
+    @for (caseItem of getCasesByStage('KYC_IN_PROGRESS'); track caseItem.id) {
+        <onboarding-case-card
+          [caseItem]="caseItem"
+          (cardClick)="openCase($event)">
+        </onboarding-case-card>
+      }
+    
+  </div>
+
+  <!-- APPROVED -->
+  <div class="column">
+    <h3>Approved</h3>
+
+      @for (caseItem of getCasesByStage('APPROVED'); track caseItem.id) {
+        <onboarding-case-card
+          [caseItem]="caseItem"
+          (cardClick)="openCase($event)">
+        </onboarding-case-card>
+      }
+    
+  </div>
+
+  <!-- REJECTED -->
+  <div class="column">
+    <h3>Rejected</h3>
+
+      @for (caseItem of getCasesByStage('REJECTED'); track caseItem.id) {
+        <onboarding-case-card
+          [caseItem]="caseItem"
+          (cardClick)="openCase($event)">
+        </onboarding-case-card>
+      }
+    
+  </div>
+
+</div>
