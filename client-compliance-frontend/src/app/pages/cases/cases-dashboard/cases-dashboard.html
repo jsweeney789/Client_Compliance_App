@@ -62,5 +62,6 @@
 <app-initialize-case-modal
   [(visible)]="showInitializeDialog"
   [clients]="clientsArray"
+  (createCase)="handleCreateCase($event)"
   >
 </app-initialize-case-modal>

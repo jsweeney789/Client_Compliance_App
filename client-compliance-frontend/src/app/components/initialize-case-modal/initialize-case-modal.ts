@@ -6,6 +6,7 @@ import { TextareaModule } from 'primeng/textarea';
 import { ButtonModule } from 'primeng/button';
 import { CommonModule } from '@angular/common';
 import { ClientRecord } from '../../types/ClientRecord';
+import { BoardCase } from '../../types/BoardCase';
 
 @Component({
   selector: 'app-initialize-case-modal',
@@ -25,7 +26,6 @@ export class InitializeCaseModal {
   @Output() visibleChange = new EventEmitter<boolean>();
 
   filteredClients: ClientRecord[] = [];
-  selectedClient: ClientRecord | null = null;
 
   searchClients(event: any) {
     const query = event.query.toLowerCase();
@@ -34,7 +34,7 @@ export class InitializeCaseModal {
       c.firstName.toLowerCase().includes(query) ||
       c.lastName.toLowerCase().includes(query) ||
       c.email.toLowerCase().includes(query)
-    );
+    ).map(c => ({ ...c, displayLabel: `${c.firstName} ${c.lastName} (${c.email})` }));
   }
 
   cancelled = output<void>();
@@ -46,15 +46,11 @@ export class InitializeCaseModal {
 
   ngOnInit() {
     this.form = this.fb.group({
-      clientId: [null, Validators.required],
-      notes: ['', Validators.required]
+      selectedClient: [null, Validators.required],
+      notes: ['']
     });
   }
-
-  getClientLabel(client: ClientRecord): string {
-    return `${client.firstName} ${client.lastName} (${client.email})`;
-  }
-
+  
   onSubmit() {
     if (this.form.invalid) {
       this.form.markAllAsTouched();
@@ -63,20 +59,23 @@ export class InitializeCaseModal {
 
     const value = this.form.value;
 
-    const payload = {
-      clientId: value.clientId,
+    const payload: BoardCase = {
+      id: "",
+      clientId: value.selectedClient.id,
+      dateInitiated: "",
       stage: 'INITIATED',
-      checks: {},
+      checks: [],
       notes: [
         {
           text: value.notes,
           authorName: 'Current User', // replace later with auth
-          timeStamp: new Date()
+          timeStamp: new Date().toString()
         }
       ]
     };
 
     this.createCase.emit(payload);
+    this.visibleChange.emit(false);
   }
 
   onClose() {

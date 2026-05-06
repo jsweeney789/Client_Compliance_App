@@ -168,6 +168,15 @@ export class CasesDashbaord {
     this.showInitializeDialog=true;
   } 
 
+  handleCreateCase(caseItem: BoardCase) {
+    this.caseservice.addCase(caseItem).subscribe({
+      next: () => {},
+      error: (err) => {
+        console.error('Error updating', err);
+      }
+    });
+  }
+
   searchTerm = '';
   showDatePicker = false;
   dateRange: Date[] | null = null;
