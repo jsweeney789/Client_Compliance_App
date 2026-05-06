@@ -1,0 +1,67 @@
+<p-card class="case-card">
+  <!-- Header -->
+  <div class="card-header">
+    <h3><strong>{{ clientInfo.firstName }} {{ clientInfo.lastName }}'s</strong> onboarding case</h3>
+  </div>
+
+  <!-- Core Info -->
+  <div class="card-body">
+    <p><strong>Contact email:</strong> {{ clientInfo.email }}</p>
+
+    @if (onboardingCase.notes) {
+      <p><strong>Notes from:</strong> {{ getNoteAuthors(onboardingCase.notes) }}</p>
+    }
+  </div>
+
+  <!-- Conditional KYC Section, only show after KYC checks have started/are relevant -->
+  @if (onboardingCase.stage !== 'INITIATED' && onboardingCase.stage !== 'UNDER_REVIEW') {
+    <div class="kyc-section">
+      <p><strong>KYC Status:</strong></p>
+
+      @if (onboardingCase.checks.length) {
+        <ul>
+          @for (check of onboardingCase.checks; track $index) {
+            <li class="check-row">
+              <span
+                class="status-dot"
+                [class.pass]="check.result === 'PASS'"
+                [class.fail]="check.result === 'FAIL'"
+                [class.pending]="check.result === 'PENDING_REVIEW'"
+              ></span>
+
+              <span class="check-text">
+                {{ check.type }} - {{ check.result }}
+              </span>
+            </li>
+          }
+        </ul>
+      }
+    </div>
+  }
+
+  <!-- Actions -->
+  <div class="card-actions">
+
+  <p-button
+    icon="pi pi-arrow-left"
+    styleClass="p-button-text p-button-rounded"
+    [disabled]="!canMoveLeft"
+    (onClick)="moveLeft.emit(onboardingCase)">
+  </p-button>
+
+  <p-button
+    icon="pi pi-search"
+    styleClass="p-button-text p-button-secondary p-button-rounded"
+    (onClick)="viewDetails.emit(onboardingCase)">
+  </p-button>
+
+  <p-button
+    icon="pi pi-arrow-right"
+    styleClass="p-button-text p-button-rounded"
+    [disabled]="!canMoveRight"
+    (onClick)="moveRight.emit(onboardingCase)">
+  </p-button>
+
+  </div>
+
+</p-card>

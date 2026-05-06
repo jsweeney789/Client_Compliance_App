@@ -19,8 +19,11 @@ import com.skillstorm.models.User;
 import com.skillstorm.security.CustomUserDetails;
 import com.skillstorm.security.JwtUtil;
 import com.skillstorm.services.UserService;
+import com.skillstorm.types.Role;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -43,7 +46,7 @@ public class LoginController {
     // then encrypts the password and stores the user in the db
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody UserDto dto, HttpServletResponse response) {
-        User user = new User(dto.email(), this.encoder.encode(dto.password()));
+        User user = new User(dto.firstName(), dto.lastName(), dto.email(), dto.phoneNumber(), this.encoder.encode(dto.password()), Role.BASIC_USER);
         user = this.service.addUser(UserDto.convertToDto(user));
         System.out.println(user);
         
@@ -91,6 +94,12 @@ public class LoginController {
         
         //return ResponseEntity.ok(token);
     }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello";
+    }
+    
     
     @GetMapping("/me")
     public ResponseEntity<UserDto> retrieveUser(Authentication auth) {

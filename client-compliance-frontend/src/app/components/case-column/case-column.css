@@ -1,0 +1,16 @@
+.column {
+  background: white;
+  border-radius: 12px;
+  padding: 1rem;
+
+  /* KEY for Kanban spacing consistency */
+  width: 300px;
+  height: 87vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.column h1 {
+  text-align: center;
+  margin-bottom: 0.75rem;
+}

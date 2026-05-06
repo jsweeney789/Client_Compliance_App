@@ -2,7 +2,7 @@ package com.skillstorm.models;
 
 import java.util.ArrayList;
 import java.util.List;
-
+import java.time.Instant;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -12,7 +12,7 @@ import com.skillstorm.types.OnboardingCaseStage;
 public class OnboardingCase {
     @Id
     private String id;
-
+    private Instant dateInitiated;
     private String clientId;
     private OnboardingCaseStage stage;
     
@@ -24,6 +24,8 @@ public class OnboardingCase {
     public OnboardingCase(String id, String clientId, OnboardingCaseStage stage, List<CaseNote> notes,
             List<KycCheck> checks) {
         this.id = id;
+        
+        this.dateInitiated = Instant.now();
         this.clientId = clientId;
         this.stage = stage;
         this.notes = notes;
@@ -32,6 +34,7 @@ public class OnboardingCase {
 
     public OnboardingCase(String id, String clientId, OnboardingCaseStage stage) {
         this.id = id;
+        this.dateInitiated = Instant.now();
         this.clientId = clientId;
         this.stage = stage;
         this.notes = new ArrayList<CaseNote>();
@@ -39,6 +42,7 @@ public class OnboardingCase {
     }
 
     public OnboardingCase() {
+        this.dateInitiated = Instant.now();
         this.notes = new ArrayList<CaseNote>();
         this.checks = new ArrayList<KycCheck>();
     }
@@ -83,10 +87,18 @@ public class OnboardingCase {
         this.checks = checks;
     }
 
+    public Instant getDateInitiated() {
+        return dateInitiated;
+    }
+
+    public void setDateInitiated(Instant dateInitiated) {
+        this.dateInitiated = dateInitiated;
+    }
+
     @Override
     public String toString() {
-        return "OnboardingCase [id=" + id + ", clientId=" + clientId + ", stage=" + stage + ", notes=" + notes
-                + ", checks=" + checks + "]";
+        return "OnboardingCase [id=" + id + ", dateInitiated=" + dateInitiated + ", clientId=" + clientId + ", stage="
+                + stage + ", notes=" + notes + ", checks=" + checks + "]";
     }
 
     

@@ -1,0 +1,38 @@
+.board {
+  display: flex;
+  gap: 1rem;
+
+  overflow-x: auto;
+  overflow-y: hidden;
+
+  align-items: flex-start;
+  justify-content: flex-start;
+
+  padding: 1rem;
+}
+.case-toolbar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding-top: 1rem;
+  padding-left: 1rem;
+  padding: 1rem;
+  width: 100%;
+
+  /* white "bar" look */
+  background: white;
+  padding: 1rem;
+
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+
+/* makes input take most of the space */
+.search-box {
+  flex: 1;
+}
+
+/* ensures input stretches fully */
+.search-box input {
+  width: 100%;
+}

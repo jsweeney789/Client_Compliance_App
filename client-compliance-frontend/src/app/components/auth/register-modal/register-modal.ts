@@ -3,11 +3,14 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
-import { User } from '../../../types/User';
+import { InputMaskModule } from 'primeng/inputmask'
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-register-modal',
-  imports: [ButtonModule, DialogModule, FloatLabelModule, ReactiveFormsModule],
+  imports: [ButtonModule, DialogModule, FloatLabelModule, ReactiveFormsModule, InputMaskModule,
+    CommonModule
+  ],
   templateUrl: './register-modal.html',
   styleUrl: './register-modal.css',
 })
@@ -27,6 +30,7 @@ export class RegisterModal {
       firstName: ['', [Validators.required]],
       lastName: ['', [Validators.required]],
       email: ['', [Validators.required]],
+      phone: ['', [Validators.required]],
       password: ['', [Validators.required]],
       confirmPassword: ['', [Validators.required]],
     }, {
@@ -47,9 +51,10 @@ export class RegisterModal {
         return;
       }
       const form = this.registerForm.value;
-      const user = {
-        firstname: form.firstname,
-        lastname: form.lastName,
+      const user: any = {
+        firstName: form.firstName,
+        lastName: form.lastName,
+        phoneNumber: form.phone,
         email: form.email,
         password: form.password
       }

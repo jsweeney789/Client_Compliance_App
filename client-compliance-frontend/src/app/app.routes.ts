@@ -6,6 +6,8 @@ import { Viewclientrecord } from './viewclientrecord/viewclientrecord';
 import { Addclientrecord } from './addclientrecord/addclientrecord';
 import { Viewusers } from './viewusers/viewusers';
 import { Adduserprofile } from './adduserprofile/adduserprofile';
+import { CasesDashbaord } from './pages/cases/cases-dashboard/cases-dashboard';
+
 
 export const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -16,5 +18,7 @@ export const routes: Routes = [
   { path: 'addclientrecord', component: Addclientrecord},
   { path: 'viewusers', component: Viewusers},
   { path: 'adduser', component: Adduserprofile},
+  { path: 'viewcases', component: CasesDashbaord},
+
 
 ];

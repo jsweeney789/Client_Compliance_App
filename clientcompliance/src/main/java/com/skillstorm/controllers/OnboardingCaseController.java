@@ -18,7 +18,7 @@ import com.skillstorm.models.OnboardingCase;
 import com.skillstorm.services.OnboardingCaseService;
 
 @RestController
-@RequestMapping("/cases")
+@RequestMapping("/api/cases")
 public class OnboardingCaseController {
     private final OnboardingCaseService service; 
 

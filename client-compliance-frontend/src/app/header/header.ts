@@ -38,6 +38,11 @@ export class Header {
 
   adminitems: MenuItem[] = [
     {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
+    {
       label: 'User Profile',
       icon: 'pi pi-user',
       items: [
@@ -56,16 +61,21 @@ export class Header {
     },
 
     {
-      label: 'Onboarding Placeholder',
+      label: 'Onboarding Cases',
       icon: 'pi pi-briefcase',
       items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
+        { label: 'View Cases', routerLink: '/viewcases' },
+        
       ],
     },
   ];
 
   relitems: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
     {
       label: 'User Profile',
       icon: 'pi pi-user',
@@ -83,16 +93,20 @@ export class Header {
     },
 
     {
-      label: 'Onboarding Placeholder',
+      label: 'Onboarding Cases',
       icon: 'pi pi-briefcase',
       items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
+        { label: 'View Cases', routerLink: '/viewcases' },
       ],
     },
   ];
 
   comitems: MenuItem[] = [
+    {
+      label: 'Home',
+      icon: 'pi pi-home',
+      routerLink: '/home'
+    },
     {
       label: 'User Profile',
       icon: 'pi pi-user',
@@ -109,11 +123,10 @@ export class Header {
     },
 
     {
-      label: 'Onboarding Placeholder',
+      label: 'Onboarding Cases',
       icon: 'pi pi-briefcase',
       items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
+        { label: 'View Cases', routerLink: '/viewcases' },
       ],
     },
   ];

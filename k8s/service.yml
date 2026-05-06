@@ -1,0 +1,25 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: jsweeneybservice             # UPDATE: name for the backend service (e.g. engagement-api-svc)
+  namespace: jsey             # UPDATE: same namespace as deployment.yaml
+spec:
+  type: ClusterIP
+  selector:
+    app: jsweeneyapp                       # UPDATE: must match the app label in deployment.yaml
+  ports:
+    - port: 80
+      targetPort: 3001
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jsweeneyfservice            # UPDATE: name for the frontend service (e.g. engagement-frontend-svc)
+  namespace: jsey               # UPDATE: same namespace as above
+spec:
+  type: ClusterIP
+  selector:
+    app: js-ey-frontend               # UPDATE: must match the app label in your frontend deployment
+  ports:
+    - port: 80
+      targetPort: 80

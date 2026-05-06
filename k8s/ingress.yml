@@ -1,0 +1,31 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jsweeneyingress                     # UPDATE: name for this ingress (e.g. engagement-portal-ingress)
+  namespace: jsey              # UPDATE: same namespace as deployment.yaml
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+spec:
+  tls:
+    - hosts:
+        - skillstormlab.com                    # UPDATE: your application hostname (e.g. portal.mycompany.internal)
+      secretName: jsweeney-tls        # UPDATE: name for the TLS certificate secret (e.g. portal-tls-secret)
+  rules:
+    - host: skillstormlab.com                  # UPDATE: same hostname as above
+      http:
+        paths:
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: jsweeneybservice   # UPDATE: must match name in service.yaml
+                port:
+                  number: 80
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: jsweeneyfservice  # UPDATE: must match name in service.yaml
+                port:
+                  number: 80
