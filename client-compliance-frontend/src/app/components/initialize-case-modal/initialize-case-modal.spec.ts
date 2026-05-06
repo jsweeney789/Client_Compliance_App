@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Addcase } from './addcase';
+import { InitializeCaseModal } from './initialize-case-modal';
 
-describe('Addcase', () => {
-  let component: Addcase;
-  let fixture: ComponentFixture<Addcase>;
+describe('InitializeCaseModal', () => {
+  let component: InitializeCaseModal;
+  let fixture: ComponentFixture<InitializeCaseModal>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Addcase],
+      imports: [InitializeCaseModal],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Addcase);
+    fixture = TestBed.createComponent(InitializeCaseModal);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

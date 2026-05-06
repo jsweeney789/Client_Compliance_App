@@ -65,7 +65,7 @@ export class Header {
       icon: 'pi pi-briefcase',
       items: [
         { label: 'View Cases', routerLink: '/viewcases' },
-        { label: 'Add Case', routerLink: '/addcase' },
+        
       ],
     },
   ];
@@ -93,11 +93,10 @@ export class Header {
     },
 
     {
-      label: 'Onboarding Placeholder',
+      label: 'Onboarding Cases',
       icon: 'pi pi-briefcase',
       items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
+        { label: 'View Cases', routerLink: '/viewcases' },
       ],
     },
   ];
@@ -124,11 +123,10 @@ export class Header {
     },
 
     {
-      label: 'Onboarding Placeholder',
+      label: 'Onboarding Cases',
       icon: 'pi pi-briefcase',
       items: [
-        { label: 'Placeholder', routerLink: '/' },
-        { label: 'Placeholder', routerLink: '/' },
+        { label: 'View Cases', routerLink: '/viewcases' },
       ],
     },
   ];

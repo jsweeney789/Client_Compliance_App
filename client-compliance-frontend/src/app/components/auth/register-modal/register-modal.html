@@ -30,6 +30,13 @@
         <label>Email</label>
     </p-floatlabel>
 
+    <!-- Phone Number -->
+    <p-floatlabel variant="on" class="w-full p-2">
+        <p-inputMask name="phonenumber" inputId="phone" formControlName="phone" 
+                    mask="999-999-9999" styleClass="w-full max-w-md"> </p-inputMask>
+        <label for="phone">Phone Number</label>
+    </p-floatlabel>
+
 
     <!-- Password -->
     <p-floatlabel variant="on" class="w-full p-2">
@@ -43,6 +50,8 @@
         <input pInputText type="password" formControlName="confirmPassword" class="w-full field-box" [class.p-filled]="registerForm.get('confirmPassword')?.value"/>
         <label>Confirm Password</label>
     </p-floatlabel>
+    <!-- <p>Form valid: {{ registerForm.valid }}</p>
+    <p>Form value: {{ registerForm.value | json }}</p> -->
 
     @if (
       registerForm.hasError('passwordMismatch') &&
