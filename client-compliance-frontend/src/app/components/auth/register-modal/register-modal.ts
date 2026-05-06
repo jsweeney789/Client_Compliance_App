@@ -5,7 +5,6 @@ import { DialogModule } from 'primeng/dialog';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputMaskModule } from 'primeng/inputmask'
 import { CommonModule } from '@angular/common';
-import { User } from '../../../types/User';
 
 @Component({
   selector: 'app-register-modal',

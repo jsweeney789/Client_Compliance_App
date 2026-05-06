@@ -12,19 +12,24 @@ import { ButtonModule } from 'primeng/button';
 import { Router } from '@angular/router';
 import { FormsModule } from '@angular/forms';
 import { DatePickerModule } from 'primeng/datepicker';
+import { InitializeCaseModal } from '../../../components/initialize-case-modal/initialize-case-modal';
 
 
 @Component({
   selector: 'app-cases-dashbaord',
   imports: [DrawerModule, CaseColumnComponent, DetailModal, ButtonModule,
-    FormsModule, DatePickerModule
+    FormsModule, DatePickerModule, InitializeCaseModal
   ],
   templateUrl: './cases-dashboard.html',
   styleUrl: './cases-dashboard.css',
 })
 export class CasesDashbaord {
   clientMap: Map<string, ClientRecord> = new Map();
-  showDialog = false;
+  get clientsArray(): ClientRecord[] {
+    return Array.from(this.clientMap.values());
+  }
+  showDetailDialog = false;
+  showInitializeDialog = false;
   selectedClient: ClientRecord | undefined = undefined;
 
   allCases: BoardCase[] = [];
@@ -157,10 +162,10 @@ export class CasesDashbaord {
   openCase(caseItem: BoardCase) {
     this.selectedClient = this.clientMap.get(caseItem.clientId);
     if (this.selectedClient) this.selectedClient.boardcase = caseItem;
-    this.showDialog = true;
+    this.showDetailDialog = true;
   }
-  goToAddCase() {
-    this.router.navigate([`/addcase`]);
+  openInitializeCaseModal() {
+    this.showInitializeDialog=true;
   } 
 
   searchTerm = '';

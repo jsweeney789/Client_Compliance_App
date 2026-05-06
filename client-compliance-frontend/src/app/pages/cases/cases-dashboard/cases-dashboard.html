@@ -30,7 +30,7 @@
     label="Add Case"
     icon="pi pi-plus"
     styleClass="p-button-primary"
-    (onClick)="goToAddCase()"
+    (onClick)="openInitializeCaseModal()"
   ></p-button>
 
 </div>
@@ -55,6 +55,12 @@
   }
 </div>
 <app-detail-modal
-  [(visible)]="showDialog"
+  [(visible)]="showDetailDialog"
   [client]="selectedClient">
 </app-detail-modal>
+
+<app-initialize-case-modal
+  [(visible)]="showInitializeDialog"
+  [clients]="clientsArray"
+  >
+</app-initialize-case-modal>
