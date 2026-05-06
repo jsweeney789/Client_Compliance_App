@@ -1,0 +1,186 @@
+trigger:
+  branches:
+    include:
+      - main
+      - release/*
+  paths:
+    include:
+      - backend/**
+      - frontend/**
+      - k8s/**
+      - azure-pipelines.yml
+
+pr:
+  branches:
+    include:
+      - main
+
+variables:
+  - name: acrLoginServer
+    value: 'jsnewacr.azurecr.io'              # UPDATE: your ACR login server (e.g. myacr.azurecr.io)
+  - name: backendImage
+    value: 'js-ey-backend'               # UPDATE: image name for the backend (e.g. engagement-api)
+  - name: frontendImage
+    value: 'js-ey-frontend'              # UPDATE: image name for the frontend (e.g. engagement-frontend)
+  - group: js-variables               # UPDATE: must match the variable group name in ADO Library
+
+stages:
+
+  # ─────────────────────────────────────────────────────────────
+  # STAGE 1 — Lint & Test
+  # ─────────────────────────────────────────────────────────────
+  - stage: LintAndTest
+    displayName: 'Lint & Test'
+    jobs:
+      - job: BackendQuality
+        displayName: 'Backend: Lint + Unit Tests'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          - task: NodeTool@0
+            displayName: 'Use Node.js 20'
+            inputs:
+              versionSpec: '20.x'
+
+          - script: |
+              cd backend && npm install
+            displayName: 'Install backend dependencies'
+
+          - script: |
+              cd backend && npm run lint
+            displayName: 'ESLint'
+
+          - script: |
+              cd backend && npm test -- --ci
+            displayName: 'Run unit tests'
+
+  # ─────────────────────────────────────────────────────────────
+  # STAGE 2 — Build & Push Docker Images to ACR
+  # ─────────────────────────────────────────────────────────────
+  - stage: BuildAndPush
+    displayName: 'Build & Push Images to ACR'
+    dependsOn: LintAndTest
+    condition: succeeded()
+    jobs:
+      - job: BuildBackend
+        displayName: 'Build backend image'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          - task: Docker@2
+            displayName: 'Build & push backend image'
+            inputs:
+              containerRegistry: 'ACR-Service-Connection'  # UPDATE: name of your ACR service connection in ADO
+              repository: '$(backendImage)'
+              command: 'buildAndPush'
+              Dockerfile: 'backend/Dockerfile'
+              buildContext: 'backend'
+              tags: |
+                $(Build.BuildId)
+                latest
+
+      - job: BuildFrontend
+        displayName: 'Build frontend image'
+        pool:
+          vmImage: 'ubuntu-latest'
+        steps:
+          - checkout: self
+
+          - task: Docker@2
+            displayName: 'Build & push frontend image'
+            inputs:
+              containerRegistry: 'ACR-Service-Connection'  # UPDATE: name of your ACR service connection in ADO
+              repository: '$(frontendImage)'
+              command: 'buildAndPush'
+              Dockerfile: 'frontend/Dockerfile'
+              buildContext: 'frontend'
+              buildArguments: |
+                VITE_API_URL=$(VITE_API_URL_STAGING)
+              tags: |
+                $(Build.BuildId)
+                latest
+
+  # ─────────────────────────────────────────────────────────────
+  # STAGE 3 — Deploy to Azure Container Apps (Staging)
+  # Uncomment after completing Part 4 (ACA setup)
+  # ─────────────────────────────────────────────────────────────
+  - stage: DeployACA
+    displayName: 'Deploy to ACA (Staging)'
+    dependsOn: BuildAndPush
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToACA
+        displayName: 'Update ACA containers'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'ey-staging'           # UPDATE: ADO Environment name for staging (created in 4.0)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: AzureCLI@2
+                  displayName: 'Update backend container app'
+                  inputs:
+                    azureSubscription: 'EY-Azure-Service-Connection'  # UPDATE: name of your Azure Resource Manager service connection
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az containerapp update \
+                        --name <backend-container-app-name> \
+                        --resource-group $(ACA_RESOURCE_GROUP) \
+                        --image $(acrLoginServer)/$(backendImage):$(Build.BuildId) \
+                        --set-env-vars \
+                          APP_VERSION=$(Build.BuildId) \
+                          NODE_ENV=staging
+
+                - task: AzureCLI@2
+                  displayName: 'Update frontend container app'
+                  inputs:
+                    azureSubscription: 'EY-Azure-Service-Connection'  # UPDATE: name of your Azure Resource Manager service connection
+                    scriptType: 'bash'
+                    scriptLocation: 'inlineScript'
+                    inlineScript: |
+                      az containerapp update \
+                        --name <frontend-container-app-name> \
+                        --resource-group $(ACA_RESOURCE_GROUP) \
+                        --image $(acrLoginServer)/$(frontendImage):$(Build.BuildId)
+
+  # ─────────────────────────────────────────────────────────────
+  # STAGE 4 — Deploy to AKS (Production)
+  # Only triggers on release/* branches
+  # Uncomment after completing Part 5 (AKS setup)
+  # ─────────────────────────────────────────────────────────────
+  - stage: DeployAKS
+    displayName: 'Deploy to AKS (Production)'
+    dependsOn: DeployACA
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+    jobs:
+      - deployment: DeployToAKS
+        displayName: 'Apply Kubernetes manifests'
+        pool:
+          vmImage: 'ubuntu-latest'
+        environment: 'ey-production'        # UPDATE: ADO Environment name for production (created in 4.0)
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - checkout: self
+
+                - task: KubernetesManifest@1
+                  displayName: 'Deploy to AKS'
+                  inputs:
+                    action: 'deploy'
+                    kubernetesServiceConnection: 'AKS-SERVICE-CONNECTION'  # UPDATE: name of your AKS service connection in ADO
+                    namespace: 'jsey'                # UPDATE: Kubernetes namespace (e.g. engagement-portal)
+                    manifests: |
+                      k8s/deployment.yaml
+                      k8s/service.yaml
+                      k8s/ingress.yaml
+                      k8s/hpa.yaml
+                    containers: |
+                      $(acrLoginServer)/$(backendImage):$(Build.BuildId)
+                      $(acrLoginServer)/$(frontendImage):$(Build.BuildId)

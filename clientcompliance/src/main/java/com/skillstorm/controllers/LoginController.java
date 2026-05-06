@@ -22,6 +22,8 @@ import com.skillstorm.services.UserService;
 import com.skillstorm.types.Role;
 
 import jakarta.servlet.http.HttpServletResponse;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @RestController
@@ -92,6 +94,12 @@ public class LoginController {
         
         //return ResponseEntity.ok(token);
     }
+
+    @GetMapping("/hello")
+    public String hello() {
+        return "Hello";
+    }
+    
     
     @GetMapping("/me")
     public ResponseEntity<UserDto> retrieveUser(Authentication auth) {

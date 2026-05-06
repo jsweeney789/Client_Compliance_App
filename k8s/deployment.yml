@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: client-compliance-app                         # UPDATE: name for this deployment (e.g. engagement-api)
+  namespace: client-compliance              # UPDATE: your Kubernetes namespace (e.g. engagement-portal)
+  labels:
+    app: client-compliance-app                        # UPDATE: must match name above
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: client-compliance-app                      # UPDATE: must match name above
+  template:
+    metadata:
+      labels:
+        app: client-compliance-app                   # UPDATE: must match name above
+    spec:
+      # imagePullSecrets is NOT needed here — the AKS cluster was created with --attach-acr
+      # which grants the cluster's managed identity direct pull access to ACR.
+      # Only add imagePullSecrets if your cluster was NOT created with --attach-acr.
+      containers:
+        - name: api
+          # Pipeline substitutes the build tag at deploy time
+          image: jsnewacr.azurecr.io/js-ey-backend:v1  # UPDATE: your ACR login server and image name TODO: TODO: TODO:
+          ports:
+            - containerPort: 3001
+          # Resource limits — required by EY cluster admission policy
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "512Mi"
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: PORT
+              value: "3001"
+            - name: API_SECRET_TOKEN
+              valueFrom:
+                secretKeyRef:
+                  name: jsweeney-secret  # UPDATE: name of the Kubernetes secret you create in 5.6
+                  key: api-secret-token
+            - name: DB_CONNECTION_STRING
+              valueFrom:
+                secretKeyRef:
+                  name: jsweeney-secret  # UPDATE: same secret name as above
+                  key: db-connection-string
+            - name: ALLOWED_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  name: jsweeney-config  # UPDATE: name of the ConfigMap you create in 5.6
+                  key: allowed-origin
+          # Restart the pod if /health stops returning 200
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 10
+            periodSeconds: 30
+            failureThreshold: 3
+          # Hold traffic until the app is fully ready
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 3001
+            initialDelaySeconds: 5
+            periodSeconds: 10
